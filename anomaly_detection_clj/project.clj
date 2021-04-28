@@ -6,7 +6,8 @@
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [com.markwatson/anomaly_detection "1.0-SNAPSHOT"]
                  [org.apache.commons/commons-io "1.3.2"]
-                 [org.clojure/data.csv "1.0.0"]]
+                 [org.clojure/data.csv "1.0.0"]
+                 [incanter "1.9.3"]]
   :main ^:skip-aot anomaly-detection-clj.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
