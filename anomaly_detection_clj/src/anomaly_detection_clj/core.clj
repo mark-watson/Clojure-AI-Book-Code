@@ -78,6 +78,25 @@
   (def java-cdata (into-array (map double-array cdata)))
   (println java-cdata)
   (def detector (new AnomalyDetection 10 (- (count cdata) 1) java-cdata))
+  (. detector train)
+  ;; get best model parameters:
+  (def best_epsilon (. detector bestEpsilon))
+  (def mean_values (. detector muValues))
+  (def sigma_squared (. detector sigmaSquared))
+  ;; to use this model, use the method AnomalyDetection.isAnamoly(double []):
+  ;(def test_malignant (double-array [0.5 1 1 0.8 0.5 0.5 0.7 1 0.1]))
+  (def test_malignant (double-array [1 1 1 0.8 0.5 0.5 0.7 1 0.1]))
+  ;(def test_benign (double-array [0.5 0.4 0.5 0.1 0.8 0.1 0.3 0.6 0.1]))
+  (def test_benign (double-array [1 0.4 0.5 0.1 0.8 0.1 0.3 0.6 0.1]))
+  (def malignant_result (. detector isAnamoly test_malignant))
+  (def benign_result (. detector isAnamoly test_benign))
+  (if malignant_result
+    (println "malignant_result true")
+    (println "malignant_result false"))
+  (if benign_result
+    (println "benign_result true")
+    (println "benign_result false"))
+
   )
 (defn -main
   "I don't do a whole lot ... yet."
