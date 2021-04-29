@@ -11,7 +11,7 @@
 (import (com.markwatson.anomaly_detection AnomalyDetection))
 (import (com.markwatson.anomaly_detection PrintHistogram))
 
-
+(def GENERATE_PLOTS false)
 
 (def NUM_HISTOGRAM_BINS 5)
 
@@ -59,9 +59,25 @@
 
   ;;(def csvdata (slurp "data/cleaned_wisconsin_cancer_data.csv"))
   ;;(PrintHistogram/historam "Clump Thickness"  cdata 0 0.0 1.0 NUM_HISTOGRAM_BINS )
-  (print-histogram "Clump Thickness" cdata 0)
-  (print-histogram "Uniformity of Cell Size" cdata 1)
-;;      )PrintHistogram.historam("Clump Thickness", training_data, 0, 0.0, 1.0, NUM_HISTOGRAM_BINS;
+  (if GENERATE_PLOTS
+    (do
+      (print-histogram "Clump Thickness" cdata 0)
+      (print-histogram "Uniformity of Cell Size" cdata 1)
+      (print-histogram "Uniformity of Cell Shape" cdata 2)
+      (print-histogram "Marginal Adhesion" cdata 3)
+      (print-histogram "Single Epithelial Cell Size" cdata 4)
+      (print-histogram "Bare Nuclei" cdata 5)
+      (print-histogram "Bland Chromatin" cdata 6)
+      (print-histogram "Normal Nucleoli" cdata 7)
+      (print-histogram "Mitoses" cdata 8)))
+;;  AnomalyDetection detector = new AnomalyDetection(10, line_count - 1, training_data);
+  (def first-row (first cdata))
+  (println first-row)
+  (def jfr (float-array first-row))
+  (println jfr)
+  (def java-cdata (into-array (map double-array cdata)))
+  (println java-cdata)
+  (def detector (new AnomalyDetection 10 (- (count cdata) 1) java-cdata))
   )
 (defn -main
   "I don't do a whole lot ... yet."
