@@ -3,3 +3,6 @@ target
 .idea
 .lein-failures
 .DS_Store
+*.lsp
+.lsp
+*.db

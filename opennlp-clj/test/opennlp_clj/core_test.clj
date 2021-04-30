@@ -1,7 +1,6 @@
 (ns opennlp-clj.core-test
   (:require [clojure.test :refer :all])
-  (:require [opennlp-clj.core :refer :all])
-  (:import (com.markwatson.opennlp NLP)))
+  (:require [opennlp-clj.core :refer :all]))
 
 (def
   test-text

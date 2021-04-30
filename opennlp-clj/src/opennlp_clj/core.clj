@@ -1,5 +1,5 @@
 (ns opennlp-clj.core
-  (:import (com.markwatson.opennlp NLP NewsClassifier)))
+  (:import (com.markwatson.opennlp NLP)))
 
 (defn sentence-splitter "tokenize entire sentences" [string-input]
   (seq (NLP/sentenceSplitter string-input)))
