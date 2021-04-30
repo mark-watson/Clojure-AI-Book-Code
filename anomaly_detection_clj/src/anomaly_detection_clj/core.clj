@@ -1,7 +1,7 @@
 (ns anomaly-detection-clj.core
   (:gen-class)
-  (:use clojure.pprint)
-  (:use (incanter core stats charts)))
+  (:require clojure.pprint)
+  (:require (incanter core stats charts)))
 
 (require '[clojure.data.csv :as csv]
          '[clojure.java.io :as io]
@@ -9,17 +9,8 @@
          )
 
 (import (com.markwatson.anomaly_detection AnomalyDetection))
-(import (com.markwatson.anomaly_detection PrintHistogram))
 
 (def GENERATE_PLOTS false)
-
-(def NUM_HISTOGRAM_BINS 5)
-
-(defn to-bin [a-vector num-bins vmin vmax]
-  (map
-    (fn [x]
-      (int (/ (* 0.99 (- x vmin) num-bins) vmax)))
-    a-vector))
 
 (defn print-histogram [title values-2d index-to-display]
   (println "** plotting:" title)
@@ -28,8 +19,9 @@
     (view (histogram column :title title))))
 
 
-(defn data->gausian [vector-of-numbers-as-strings]
+(defn data->gausian
   "separate labeled output, and then make the data look more like a Gausian (bell curve shaped) distribution"
+   [vector-of-numbers-as-strings]
   (let [v (map read-string vector-of-numbers-as-strings)
         training-data0 (map
                         (fn [x] (Math/log (+ (* 0.1 x) 1.2)))

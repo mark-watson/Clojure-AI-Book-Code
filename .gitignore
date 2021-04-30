@@ -2,3 +2,4 @@ target
 *.iml
 .idea
 .lein-failures
+.DS_Store
