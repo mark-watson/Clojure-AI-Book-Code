@@ -25,6 +25,8 @@
            [org.deeplearning4j.nn.conf
             BackpropType
             WorkspaceMode]
+           [org.deeplearning4j.eval Evaluation]
+           ;;[org.nd4j.linalg.api.ndarray toDoubleMatrix]
            [org.deeplearning4j.nn.conf.layers
             SubsamplingLayer$Builder
             SubsamplingLayer$PoolingType
@@ -73,12 +75,41 @@
                (.seed initial-seed)
                (.activation Activation/TANH)
                (.weightInit( WeightInit/XAVIER))
-        ;;TBD finish above on Intel Mac (no ARM DL4J backend
-        ]
-    ;;(. conf  (activation Activation/TANH))
-    ;;(-> conf  (.activation Activation/TANH))
+               (.updater (new Sgd 0.1))
+               (.l2 1e-4)
+               (.list)
+               (.layer
+                 0,
+                 (-> (new DenseLayer$Builder)
+                     (.nIn numInputs)
+                     (.nOut numHidden)
+                     (.build)))
+               (.layer
+                 1,
+                 (-> (new OutputLayer$Builder LossFunctions$LossFunction/MCXENT)
+                     (.nIn numHidden)
+                     (.nOut numClasses)
+                     (.activation Activation/SOFTMAX)
+                     (.build)))
+               (.build))
+        model (new MultiLayerNetwork conf)
+        score-listener (ScoreIterationListener. 100)]
+    (. model init)
+    (. model setListeners (list score-listener))
+    (. model fit trainIter 10)
     (println trainIter)
     (println testIter)
     (println conf)
-    ))
+    (let [eval (new Evaluation numOutputs)]
+      (while (. testIter hasNext)
+        (let [ds (. testIter next)
+              features (. ds getFeatures)
+              labels (. ds getLabels)
+              predicted (. model output features false)]
+          (doseq [i (range 0 52 2)] ;; 26 test samples in data/testing.csv
+            (println
+              "desired output: [" (. labels getDouble i)
+              (. labels getDouble (+ i 1)) "]"
+              "predicted output: [" (. predicted getDouble i)
+              (. predicted getDouble (+ i 1)) "]")))))))
 

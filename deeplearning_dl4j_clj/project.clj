@@ -6,7 +6,8 @@
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [org.deeplearning4j/deeplearning4j-datasets "1.0.0-beta7"]
                  [org.deeplearning4j/deeplearning4j-core "1.0.0-beta7"]
-                 [org.nd4j/nd4j-native "1.0.0-beta7"]]
+                 [org.nd4j/nd4j-native "1.0.0-beta7"]
+                 [org.datavec/datavec-api "1.0.0-beta7"]]
   :main ^:skip-aot deeplearning-dl4j-clj.wisconsin_data
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
