@@ -1,6 +1,6 @@
 (ns python-interop-deeplearning.core
-  (:require [libpython-clj.require :refer [require-python]]
-            [libpython-clj.python :as py :refer [py. py.. py.-]]))
+    (:require [libpython-clj.require :refer [require-python]]
+              [libpython-clj.python :as py :refer [py. py.. py.-]]))
 
 (defn -main
   "I don't do a whole lot ... yet."
