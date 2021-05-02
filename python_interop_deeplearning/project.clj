@@ -6,7 +6,15 @@
   :jvm-opts ["-Djdk.attach.allowAttachSelf"
              "-XX:+UnlockDiagnosticVMOptions"
              "-XX:+DebugNonSafepoints"]
-  :dependencies [[org.clojure/clojure "1.10.1"]
+    :plugins [[lein-tools-deps "0.4.5"]]
+    :middleware [lein-tools-deps.plugin/resolve-dependencies-with-deps-edn]
+      :lein-tools-deps/config {:config-files [:project]
+                                 :resolve-aliases []}
+
+    :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
+                "clojars" {:url "https://clojars.org/repo"}}
+
+   :dependencies [[org.clojure/clojure "1.10.1"]
                  ;;[clj-python/libpython-clj "1.37"]
                  [clj-python/libpython-clj "1.37"]
                  ]
