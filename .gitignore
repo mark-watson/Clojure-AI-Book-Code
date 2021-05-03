@@ -6,3 +6,6 @@ target
 *.lsp
 .lsp
 *.db
+.cpcache
+*.cpcache
+
