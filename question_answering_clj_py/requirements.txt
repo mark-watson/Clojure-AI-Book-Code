@@ -1,4 +1,0 @@
-transformers
-SPARQLWrapper
-pytorch
-spacy
