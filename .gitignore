@@ -9,4 +9,7 @@ target
 .cpcache
 *.cpcache
 *.log
+.classpath
+.project
+.settings
 
