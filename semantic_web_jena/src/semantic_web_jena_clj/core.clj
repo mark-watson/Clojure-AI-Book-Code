@@ -22,6 +22,8 @@
 
 (defn query-dbpedia [sparql-query]
   (query-remote "https://dbpedia.org/sparql" sparql-query))
+;;  (query-dbpedia "select * where { ?subject ?property ?object . } limit 10")
 
 (defn query-wikidata [sparql-query]
   (query-remote "\"https://query.wikidata.org/bigdata/namespace/wdq/sparql" sparql-query))
+;;  (query-dbpedia  "select ?p where { <http://dbpedia.org/resource/Bill_Gates> ?p <http://dbpedia.org/resource/Microsoft> . } limit 3")
