@@ -8,7 +8,7 @@
                  [org.deeplearning4j/deeplearning4j-core "1.0.0-beta7"]
                  [org.nd4j/nd4j-native "1.0.0-beta7"]
                  [org.datavec/datavec-api "1.0.0-beta7"]]
-  :main ^:skip-aot deeplearning-dl4j-clj.wisconsin_data
+  :main ^:skip-aot deeplearning-dl4j-clj.wisconsin-data
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}})

@@ -1,4 +1,4 @@
-(ns python-interop-deeplearning.core
+(ns nlp-libpython-spacy.core
     (:require [libpython-clj.require :refer [require-python]]
               [libpython-clj.python :as py :refer [py. py.. py.-]]))
 
