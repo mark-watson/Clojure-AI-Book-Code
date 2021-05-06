@@ -10,7 +10,7 @@
 
 (defn create-table-if-not-exists []
   (try
-    (jdbc/execute! ds ["CREATE TABLE DBPEDIA (query varchar(600), result varchar(8192))"])
+    (jdbc/execute! ds ["CREATE TABLE DBPEDIA (query varchar(800), result varchar(18192))"])
     (catch Exception e)))
 
 (defn read-cache [a-query]
@@ -27,7 +27,11 @@
       cached-result
       (do
         (let [result (sparql/dbpedia a-query)
-              sql-insert (str "insert into DBPEDIA(query,result) values('" a-query "','" (apply str result) "')")]
+              sql-insert (clojure.string/replace
+                           (str "insert into DBPEDIA(query,result) values('" a-query "','" result "')")
+                           ;;(str "insert into DBPEDIA(query,result) values('" a-query "','" (apply str result) "')")
+                            #"\"\"" "\"")]
+                            ;;#"\"\"" "\"")]
           (jdbc/execute! ds [sql-insert])
           (println "Writing data to cache...")
           result)))))

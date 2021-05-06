@@ -1,6 +1,6 @@
 (ns knowledge-graph-navigator-clj.kgn-test
   (:require [clojure.test :refer :all]
-            [knowledge-graph-navigator-clj.core :refer :all])
+            [knowledge-graph-navigator-clj.kgn :refer :all])
   (:require [knowledge-graph-navigator-clj.sparql :as sparql] ;; for non-cached
             [knowledge-graph-navigator-clj.cache :as cache]
             [knowledge-graph-navigator-clj.relationships :as enitites]
