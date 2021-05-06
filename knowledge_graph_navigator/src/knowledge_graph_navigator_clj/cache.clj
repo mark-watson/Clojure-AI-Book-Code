@@ -38,6 +38,7 @@
 
 (comment
   (def test-query "select * { ?s ?p ?o } limit 3")
+
   (def z (cached-sparql-query test-query))
   (println "z" z)
   (println "- first:" (first z))
