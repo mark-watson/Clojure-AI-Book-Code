@@ -1,6 +1,5 @@
 (ns knowledge-graph-navigator-clj.entities-by-name
   (:require [knowledge-graph-navigator-clj.sparql :as sparql]
-            [knowledge-graph-navigator-clj.cache :as cache]
             [knowledge-graph-navigator-clj.colorize :as colorize])
   (:use clojure.pprint))
 
@@ -15,8 +14,7 @@
            ". }"])]
     (println "Generated SPARQL to get DBPedia entity URIs from a name:")
     (println (colorize/colorize-sparql sparql-query))
-    (cache/cached-sparql-query sparql-query)))
-    ;; for non-cached queries use: (sparql/dbpedia sparql-query)
+    (sparql/dbpedia sparql-query)))
 
 (defn -main
   "I don't do a whole lot."
