@@ -10,7 +10,7 @@
 
 (defn create-table-if-not-exists []
   (try
-    (jdbc/execute! ds ["CREATE TABLE DBPEDIA (query varchar(256), result varchar(8192))"])
+    (jdbc/execute! ds ["CREATE TABLE DBPEDIA (query varchar(600), result varchar(8192))"])
     (catch Exception e)))
 
 (defn read-cache [a-query]

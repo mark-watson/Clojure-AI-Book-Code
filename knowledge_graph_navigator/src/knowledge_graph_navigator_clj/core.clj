@@ -1,6 +1,6 @@
 (ns knowledge-graph-navigator-clj.core
   (:require [knowledge-graph-navigator-clj.sparql :as sparql])
-  (:require [knowledge-graph-navigator-clj.kgn-utils :as utils])
+  (:require [knowledge-graph-navigator-clj.entities-by-name :as utils])
   (:use clojure.pprint))
 
 (defn  -main
