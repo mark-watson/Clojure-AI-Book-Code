@@ -1,4 +1,4 @@
-(ns knowledge-graph-navigator-clj.core-test
+(ns knowledge-graph-navigator-clj.kgn-test
   (:require [clojure.test :refer :all]
             [knowledge-graph-navigator-clj.core :refer :all])
   (:require [knowledge-graph-navigator-clj.sparql :as sparql] ;; for non-cached

@@ -19,26 +19,20 @@
       (second results))))                                   ; discard SPARQL variable name p (?p)
 
 (defn entity-results->relationship-links [uris-no-brackets]
-  (println uris-no-brackets)
   (let [uris (map
                (fn [u] (clojure.string/join "" ["<" u ">"]))
                uris-no-brackets)
         relationship-statements (new java.util.ArrayList)]
     (doseq [e1 uris]
       (doseq [e2 uris]
-        (println e1 e2)
         (if (not (= e1 e2))
           (let [l1 (dbpedia-get-relationships e1 e2)
                 l2 (dbpedia-get-relationships e2 e1)]
-            (println "l1" l1)
-            (println "l2" l2)
             (doseq [x l1]
-              (println "x l1" x)
               (let [a-tuple [e1 x e2]]
                 (if (not (. relationship-statements contains a-tuple))
                   (. relationship-statements add a-tuple))))
             (doseq [x l2]
-              (println "x l2" x)
               (let [a-tuple [e1 x e2]]
                 (if (not (. relationship-statements contains a-tuple))
                   (. relationship-statements add a-tuple))))))))
