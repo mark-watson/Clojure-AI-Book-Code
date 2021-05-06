@@ -38,7 +38,6 @@
 
 (comment
   (def test-query "select * { ?s ?p ?o } limit 3")
-  ;;(println "LIST ALL ROWS: jdbc/execute!" (jdbc/execute! ds [(str "select * from DBPEDIA")]))
   (def z (cached-sparql-query test-query))
   (println "z" z)
   (println "- first:" (first z))
