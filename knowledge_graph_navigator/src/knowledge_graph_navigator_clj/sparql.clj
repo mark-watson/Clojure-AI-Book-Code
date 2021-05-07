@@ -3,16 +3,21 @@
   (:require [clojure.data.json :as json]))
 
 (require '[cemerick.url :refer (url-encode)])
-(require '[clojure.data.csv :as csv])
 
 ;; Copied from https://github.com/mark-watson/clj-sparql
 
 (defn dbpedia [sparql-query]
-  (let [q (str "https://dbpedia.org//sparql?output=csv&query=" (url-encode sparql-query))
+  (let [q (str "https://dbpedia.org//sparql?output=json&query=" (url-encode sparql-query))
         _ (println q)
         response (client/get q)
-        body (:body response)]
-    (csv/read-csv body)))
+        body(json/read-str (:body response))
+        vars ((body "head") "vars")
+        values (map
+                 (fn [x]
+                   (for [v vars]
+                     ((x v) "value")))
+                 ((body "results") "bindings"))]
+    (cons vars values)))
 
 (defn wikidata
   "note: WikiData currently does not return /text/csv values, even when requested"
@@ -27,3 +32,9 @@
                     ((x v) "value")))
                 ((body "results") "bindings"))]
     (cons vars values)))
+
+(defn -main
+  "I don't do a whole lot."
+  [& args]
+  (println (dbpedia "select * { ?s ?p ?o } limit 2")))
+

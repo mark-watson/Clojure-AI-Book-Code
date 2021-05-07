@@ -12,16 +12,14 @@
   "Top level function for the Knowledge Graph Navigator library
    Inputs: a map with keys Person, Place, and Organization. values list of names"
   [input-entity-map]
-  (let [entity-URI-list (new java.util.ArrayList)]
-    (for [entity-key (keys input-entity-map)]
-      (for [entity-name (input-entity-map entity-key)]
-        (let [enames
-              (entity-name/dbpedia-get-entities-by-name entity-name
-                                                        (entity-map entity-key))]
-          (println "enames" enames)
-          (for [ename enames] (. entity-URI-list add ename)))))
+  (println "$$ input-entity-map:") (pprint input-entity-map)
+  (println "$$ (keys input-entity-map):") (pprint (keys input-entity-map))
+  (for [entity-key (keys input-entity-map)]
+    (for [entity-name (input-entity-map entity-key)]
+      (entity-name/dbpedia-get-entities-by-name
+        entity-name
+        (entity-map entity-key)))))
 
-    entity-URI-list))
 
 (defn -main
   "I don't do a whole lot."

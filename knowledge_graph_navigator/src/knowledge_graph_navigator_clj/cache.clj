@@ -24,7 +24,7 @@
     ;;(pprint results)
     (pprint data)
     (pprint (url-decode data))
-    (if data (read-string (url-decode data) nil))))
+    (if data (read-string (url-decode data)) nil)))
 
 (defn cached-sparql-query [a-query]
   (let [cached-result (read-cache a-query)]
@@ -44,7 +44,7 @@
           result)))))
 
 (defn -main [& args]
-  (def test-query "select * { ?s ?p ?o } limit 5")
+  (def test-query "select * { <http://dbpedia.org/resource/Steve_Jobs> <http://www.w3.org/2000/01/rdf-schema#comment> ?comment . filter(lang(?comment)='en')  } limit 2")
 
   (def z (cached-sparql-query test-query))
   (println "z" z)
@@ -57,4 +57,3 @@
   (println "(type z2)" (type z2))
   (println "- first:" (first z2))
   (println "- second:" (second z2)))
-
