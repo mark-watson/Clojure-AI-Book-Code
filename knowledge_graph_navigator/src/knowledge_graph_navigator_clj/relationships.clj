@@ -9,7 +9,7 @@
           ""
           ["SELECT DISTINCT ?p {{  "
            s-uri " ?p " o-uri " . FILTER (!regex(str(?p), \"wikiPage\", \"i\")) }} LIMIT 5"])
-        results (sparql/dbpedia query)]
+        results (sparql/sparql-endpoint query)]
     (println "Generated SPARQL to get relationships between two entities:")
     (println (colorize/colorize-sparql query))
     (println "++++++" results)

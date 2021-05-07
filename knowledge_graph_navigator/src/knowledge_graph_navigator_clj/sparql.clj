@@ -8,7 +8,8 @@
 ;; Copied from https://github.com/mark-watson/clj-sparql
 
 (defn dbpedia [sparql-query]
-  (let [q (str "https://dbpedia.org//sparql?output=csv&query=" (url-encode sparql-query))
+  ;;(let [q (str "https://dbpedia.org//sparql?output=csv&query=" (url-encode sparql-query))
+  (let [q (str "http://127.0.0.1:8080/sparql?output=csv&query=" (url-encode sparql-query))
         _ (println q)
         response (client/get q)
         body (:body response)]
@@ -27,3 +28,24 @@
                     ((x v) "value")))
                 ((body "results") "bindings"))]
     (cons vars values)))
+
+
+(defn- graphdb-helper [host port graph-name sparql-query]
+  (let [q (str host ":" port "/repositories/" graph-name "?query=" (url-encode sparql-query))
+        response (client/get q)
+        body (:body response)]
+    (csv/read-csv body)))
+
+(defn graphdb
+  ([graph-name sparql-query] (graphdb-helper "http://127.0.0.1" 7200 graph-name sparql-query))
+  ([host port graph-name sparql-query] (graphdb-helper host port graph-name sparql-query)))
+
+(defn sparql-endpoint [sparql-query]
+  (graphdb "dbpedia" sparql-query)
+  ;;(dbpedia sparql-query)
+  )
+
+(defn -main
+  "I don't do a whole lot."
+  [& args]
+  (println (sparql-endpoint "select * { ?s ?p ?o } limit 10")))

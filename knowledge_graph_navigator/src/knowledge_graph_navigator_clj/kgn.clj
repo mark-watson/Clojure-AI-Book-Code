@@ -14,12 +14,14 @@
   [input-entity-map]
   ;;(println "* kgn:" input-entity-map)
   (let [entity-URI-list                                     ;; (new java.util.ArrayList)]
-        (mapcat ;; flatten just top level
+        (mapcat                                             ;; flatten just top level
           identity
           (for [entity-key (keys input-entity-map)]
             (for [entity-name (input-entity-map entity-key)]
-              (second
-                (entity-name/dbpedia-get-entities-by-name entity-name (entity-map entity-key))))))]
+              (cons
+                entity-name
+                (second
+                  (entity-name/dbpedia-get-entities-by-name entity-name (entity-map entity-key)))))))]
     (println "++++  entity-URI-list:") (println entity-URI-list)
     entity-URI-list))
 
