@@ -8,8 +8,6 @@
                  [com.cemerick/url "0.1.1"]
                  [org.clojure/data.csv "1.0.0"]
                  [org.clojure/data.json "1.0.0"]
-
-                 [com.github.seancorfield/next.jdbc "1.2.659"]
-                 [com.h2database/h2 "1.4.199"]]
+                 [org.clojure/math.combinatorics "0.1.6"]]
   :repl-options {:init-ns knowledge-graph-navigator-clj.kgn}
   :main ^:skip-aot knowledge-graph-navigator-clj.kgn)

@@ -41,9 +41,16 @@
   ([host port graph-name sparql-query] (graphdb-helper host port graph-name sparql-query)))
 
 (defn sparql-endpoint [sparql-query]
-  (graphdb "dbpedia" sparql-query)
-  ;;(dbpedia sparql-query)
-  )
+  ;;(println "\nSPARQL:\n" sparql-query)
+  (try
+    (graphdb "dbpedia" sparql-query)
+    ;;(dbpedia sparql-query)
+    (catch Exception e
+      (do
+        (println "WARNING: a SPARQL query failed:\n" sparql-query)
+        (println (.getMessage e))
+        (clojure.stacktrace/print-stack-trace e)
+        []))))
 
 (defn -main
   "I don't do a whole lot."

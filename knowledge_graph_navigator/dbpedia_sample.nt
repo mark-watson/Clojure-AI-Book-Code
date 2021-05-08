@@ -417,6 +417,7 @@
 <http://dbpedia.org/resource/Melinda_Gates>	<http://purl.org/dc/terms/subject>	<http://dbpedia.org/resource/Category:1964_births> .
 <http://dbpedia.org/resource/Melinda_Gates>	<http://dbpedia.org/ontology/occupation>	<http://dbpedia.org/resource/Bill_&_Melinda_Gates_Foundation> .
 <http://dbpedia.org/resource/Melinda_Gates>	<http://dbpedia.org/ontology/occupation>	<http://dbpedia.org/resource/Melinda_Gates__PersonFunction__1> .
+<http://dbpedia.org/resource/Melinda_Gates> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Person> .
 # Empty NT
 # Empty NT
 # Empty NT

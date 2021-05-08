@@ -21,4 +21,7 @@
 (defn -main
   "I don't do a whole lot."
   [& args]
-  (println (dbpedia-get-entities-by-name "Steve Jobs" "<http://dbpedia.org/ontology/Person>")))
+  ;(println (dbpedia-get-entities-by-name "Steve Jobs" "<http://dbpedia.org/ontology/Person>"))
+  (println (dbpedia-get-entities-by-name "Microsoft" "<http://dbpedia.org/ontology/Organization>"))
+  (println (dbpedia-get-entities-by-name "California" "<http://dbpedia.org/ontology/Place>"))
+  )
