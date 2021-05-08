@@ -1,7 +1,7 @@
 (ns knowledge-graph-navigator-clj.entities-by-name
   (:require [knowledge-graph-navigator-clj.sparql :as sparql]
             [knowledge-graph-navigator-clj.colorize :as colorize])
-  (:use clojure.pprint))
+  (:refer clojure.pprint :only [pprint]))
 
 (defn dbpedia-get-entities-by-name [name dbpedia-type]
   (let [sparql-query

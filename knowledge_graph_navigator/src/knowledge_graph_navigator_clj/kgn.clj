@@ -1,7 +1,7 @@
 (ns knowledge-graph-navigator-clj.kgn
-  (:require [knowledge-graph-navigator-clj.sparql :as sparql])
+  ;;(:require [knowledge-graph-navigator-clj.sparql :as sparql])
   (:require [knowledge-graph-navigator-clj.entities-by-name :as entity-name])
-  (:use clojure.pprint))
+  (:refer clojure.pprint :only [pprint]))
 (require 'clojure.walk)
 
 (def entity-map {:People       "<http://dbpedia.org/ontology/Person>"

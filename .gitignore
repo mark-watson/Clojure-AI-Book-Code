@@ -12,4 +12,5 @@ target
 .classpath
 .project
 .settings
+.calva
 

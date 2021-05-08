@@ -1,7 +1,7 @@
 (ns knowledge-graph-navigator-clj.relationships
   (:require [knowledge-graph-navigator-clj.sparql :as sparql] ;; for non-cached
             [knowledge-graph-navigator-clj.colorize :as colorize])
-  (:use clojure.pprint))
+  (:refer clojure.pprint :only [pprint]))
 
 (defn dbpedia-get-relationships [s-uri o-uri]
   (let [query
