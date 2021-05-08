@@ -4,6 +4,7 @@
   (:refer clojure.pprint :only [pprint]))
 
 (defn dbpedia-get-entities-by-name [name dbpedia-type]
+  (println "** dbpedia-get-entities-by-name: name=" name "dbpedia-type=" dbpedia-type)
   (let [sparql-query
         (clojure.string/join
           ""
