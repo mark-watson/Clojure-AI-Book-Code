@@ -2,7 +2,7 @@
   (:require [knowledge-graph-navigator-clj.entities-by-name :as entity-name])
   (:require [knowledge-graph-navigator-clj.relationships :as rel])
   (:require [clojure.math.combinatorics :as combo])
-  (:refer clojure.pprint :only [pprint]))
+  (:require [clojure.pprint :as pp]))
 
 (def entity-map {:People       "<http://dbpedia.org/ontology/Person>"
                  :Organization "<http://dbpedia.org/ontology/Organization>"
@@ -40,5 +40,5 @@
   (let [results (kgn {:People       ["Bill Gates" "Steve Jobs" "Melinda Gates"]
                       :Organization ["Microsoft"]
                       :Place        ["California"]})]
-    (println " -- results:") (pprint results)
+    (println " -- results:") (pp/pprint results)
     ))

@@ -1,7 +1,7 @@
 (ns knowledge-graph-navigator-clj.relationships
-  (:require [knowledge-graph-navigator-clj.sparql :as sparql] ;; for non-cached
-            [knowledge-graph-navigator-clj.colorize :as colorize])
-  (:refer clojure.pprint :only [pprint]))
+  (:require [knowledge-graph-navigator-clj.sparql :as sparql]) ;; for non-cached
+  (:require [clojure.pprint :as pp])
+  (:require clojure.string))
 
 (defn dbpedia-get-relationships [s-uri o-uri]
   (let [query
@@ -30,18 +30,21 @@
             (doseq [x l1]
               (let [a-tuple [e1 x e2]]
                 (if (not (. @relationship-statements contains a-tuple))
-                  (reset! relationship-statements (cons a-tuple @relationship-statements)))
+                  (reset! relationship-statements (cons a-tuple @relationship-statements))
+                  nil))
             (doseq [x l2]
               (let [a-tuple [e2 x e1]]
                 (if (not (. @relationship-statements contains a-tuple))
-                  (reset! relationship-statements (cons a-tuple @relationship-statements)))))))))))
+                  (reset! relationship-statements (cons a-tuple @relationship-statements))
+                  nil)))))
+          nil)))
     @relationship-statements))
 
 ;;(pprint (entity-results->relationship-links ["http://dbpedia.org/resource/Bill_Gates" "http://dbpedia.org/resource/Microsoft"]))
 
 (defn -main
   "I don't do a whole lot."
-  [& args]
+  [& _]
   (println "Testing entity-results->relationship-links")
-  (pprint (entity-results->relationship-links ["http://dbpedia.org/resource/Bill_Gates" "http://dbpedia.org/resource/Microsoft"])))
+  (pp/pprint (entity-results->relationship-links ["http://dbpedia.org/resource/Bill_Gates" "http://dbpedia.org/resource/Microsoft"])))
 

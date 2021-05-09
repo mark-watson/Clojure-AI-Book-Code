@@ -1,7 +1,7 @@
 (ns knowledge-graph-navigator-clj.entities-by-name
-  (:require [knowledge-graph-navigator-clj.sparql :as sparql]
-            [knowledge-graph-navigator-clj.colorize :as colorize])
-  (:refer clojure.pprint :only [pprint]))
+  (:require [knowledge-graph-navigator-clj.sparql :as sparql])
+  (:require [clojure.pprint :as pp])
+  (:require clojure.string))
 
 (defn dbpedia-get-entities-by-name [name dbpedia-type]
   ;(println "** dbpedia-get-entities-by-name: name=" name "dbpedia-type=" dbpedia-type)
@@ -21,8 +21,8 @@
 
 (defn -main
   "I don't do a whole lot."
-  [& args]
-  ;(println (dbpedia-get-entities-by-name "Steve Jobs" "<http://dbpedia.org/ontology/Person>"))
+  [& _]
+  (println (dbpedia-get-entities-by-name "Steve Jobs" "<http://dbpedia.org/ontology/Person>"))
   (println (dbpedia-get-entities-by-name "Microsoft" "<http://dbpedia.org/ontology/Organization>"))
-  (println (dbpedia-get-entities-by-name "California" "<http://dbpedia.org/ontology/Place>"))
+  (pp/pprint (dbpedia-get-entities-by-name "California" "<http://dbpedia.org/ontology/Place>"))
   )
