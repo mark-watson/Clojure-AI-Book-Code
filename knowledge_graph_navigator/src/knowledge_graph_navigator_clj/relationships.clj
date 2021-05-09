@@ -10,9 +10,9 @@
           ["SELECT DISTINCT ?p {{  "
            s-uri " ?p " o-uri " . FILTER (!regex(str(?p), \"wikiPage\", \"i\")) }} LIMIT 5"])
         results (sparql/sparql-endpoint query)]
-    (println "Generated SPARQL to get relationships between two entities:")
-    (println (colorize/colorize-sparql query))
-    (println "++++++" results)
+    ;(println "Generated SPARQL to get relationships between two entities:")
+    ;(println (colorize/colorize-sparql query))
+    ;(println "++++++" results)
     (map
       (fn [u] (clojure.string/join "" ["<" u ">"]))
       (second results))))                                   ; discard SPARQL variable name p (?p)
@@ -21,23 +21,21 @@
   (let [uris (map
                (fn [u] (clojure.string/join "" ["<" u ">"]))
                uris-no-brackets)
-        relationship-statements (new java.util.ArrayList)]
+        relationship-statements (atom [])]
     (doseq [e1 uris]
       (doseq [e2 uris]
-        (println "e1" e1 "e2" e2)
         (if (not (= e1 e2))
           (let [l1 (dbpedia-get-relationships e1 e2)
                 l2 (dbpedia-get-relationships e2 e1)]
-            (println "l1" l1 "l2" l2)
             (doseq [x l1]
               (let [a-tuple [e1 x e2]]
-                (if (not (. relationship-statements contains a-tuple))
-                  (. relationship-statements add a-tuple))))
+                (if (not (. @relationship-statements contains a-tuple))
+                  (reset! relationship-statements (cons a-tuple @relationship-statements)))
             (doseq [x l2]
-              (let [a-tuple [e1 x e2]]
-                (if (not (. relationship-statements contains a-tuple))
-                  (. relationship-statements add a-tuple))))))))
-    relationship-statements))
+              (let [a-tuple [e2 x e1]]
+                (if (not (. @relationship-statements contains a-tuple))
+                  (reset! relationship-statements (cons a-tuple @relationship-statements)))))))))))
+    @relationship-statements))
 
 ;;(pprint (entity-results->relationship-links ["http://dbpedia.org/resource/Bill_Gates" "http://dbpedia.org/resource/Microsoft"]))
 

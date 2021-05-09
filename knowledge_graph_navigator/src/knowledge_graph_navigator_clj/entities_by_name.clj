@@ -4,7 +4,7 @@
   (:refer clojure.pprint :only [pprint]))
 
 (defn dbpedia-get-entities-by-name [name dbpedia-type]
-  (println "** dbpedia-get-entities-by-name: name=" name "dbpedia-type=" dbpedia-type)
+  ;(println "** dbpedia-get-entities-by-name: name=" name "dbpedia-type=" dbpedia-type)
   (let [sparql-query
         (clojure.string/join
           ""
@@ -14,9 +14,9 @@
            dbpedia-type
            ". }"])
         results (sparql/sparql-endpoint sparql-query)]
-    (println "Generated SPARQL to get DBPedia entity URIs from a name:")
-    (println (colorize/colorize-sparql sparql-query))
-    (println "Results:") (pprint results)
+    ;(println "Generated SPARQL to get DBPedia entity URIs from a name:")
+    ;(println (colorize/colorize-sparql sparql-query))
+    ;(println "Results:") (pprint results)
     results))
 
 (defn -main

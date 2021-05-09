@@ -15,7 +15,7 @@
   ;;(println "* kgn:" input-entity-map)
   (let [entities-summary-data
         (filter
-          (fn [x] (> (count x) 1))                          ;; get rid of emty PSARQL results
+          (fn [x] (> (count x) 1))                          ;; get rid of empty SPARQL results
           (mapcat                                           ;; flatten just top level
             identity
             (for [entity-key (keys input-entity-map)]
@@ -27,18 +27,18 @@
         entity-uris (map second entities-summary-data)
         combinations-by-2-of-entity-uris (combo/combinations entity-uris 2)
         discovered-relationships
-        (for [pair-of-uris combinations-by-2-of-entity-uris]
-          (rel/entity-results->relationship-links pair-of-uris))]
-    (println "++++  entities-summary-data:") (println entities-summary-data)
-    (println "++++  combinations-by-2-of-entity-uris:") (println combinations-by-2-of-entity-uris)
-    discovered-relationships))
+        (filter
+          (fn [x] (> (count x) 0))
+          (for [pair-of-uris combinations-by-2-of-entity-uris]
+            (seq (rel/entity-results->relationship-links pair-of-uris))))]
+    {:entity-summaries entities-summary-data
+     :discovered-relationships discovered-relationships}))
 
 (defn -main
   "I don't do a whole lot."
-  [& args]
-  (let [results (kgn {:People        ["Bill Gates" "Steve Jobs" "Melinda Gates"]
+  [& _]
+  (let [results (kgn {:People       ["Bill Gates" "Steve Jobs" "Melinda Gates"]
                       :Organization ["Microsoft"]
                       :Place        ["California"]})]
     (println " -- results:") (pprint results)
-    (doseq [result results]
-      (println "* next result:") (println result))))
+    ))
