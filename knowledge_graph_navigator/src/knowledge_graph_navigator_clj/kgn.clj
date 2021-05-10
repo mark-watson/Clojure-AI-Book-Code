@@ -23,7 +23,9 @@
                 (cons
                   entity-name
                   (second
-                    (entity-name/dbpedia-get-entities-by-name entity-name (entity-map entity-key))))))))
+                    (entity-name/dbpedia-get-entities-by-name 
+                     entity-name
+                     (entity-map entity-key))))))))
         entity-uris (map second entities-summary-data)
         combinations-by-2-of-entity-uris (combo/combinations entity-uris 2)
         discovered-relationships
@@ -35,10 +37,9 @@
      :discovered-relationships discovered-relationships}))
 
 (defn -main
-  "I don't do a whole lot."
+  "Main function for KGN example"
   [& _]
   (let [results (kgn {:People       ["Bill Gates" "Steve Jobs" "Melinda Gates"]
                       :Organization ["Microsoft"]
                       :Place        ["California"]})]
-    (println " -- results:") (pp/pprint results)
-    ))
+    (println " -- results:") (pp/pprint results)))

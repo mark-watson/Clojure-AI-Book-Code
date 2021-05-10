@@ -10,9 +10,6 @@
           ["SELECT DISTINCT ?p {{  "
            s-uri " ?p " o-uri " . FILTER (!regex(str(?p), \"wikiPage\", \"i\")) }} LIMIT 5"])
         results (sparql/sparql-endpoint query)]
-    ;(println "Generated SPARQL to get relationships between two entities:")
-    ;(println (colorize/colorize-sparql query))
-    ;(println "++++++" results)
     (map
       (fn [u] (clojure.string/join "" ["<" u ">"]))
       (second results))))                                   ; discard SPARQL variable name p (?p)
@@ -39,8 +36,6 @@
                   nil)))))
           nil)))
     @relationship-statements))
-
-;;(pprint (entity-results->relationship-links ["http://dbpedia.org/resource/Bill_Gates" "http://dbpedia.org/resource/Microsoft"]))
 
 (defn -main
   "I don't do a whole lot."

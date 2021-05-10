@@ -27,10 +27,9 @@
   ([host port graph-name sparql-query] (graphdb-helper host port graph-name sparql-query)))
 
 (defn sparql-endpoint [sparql-query]
-  ;;(println "\nSPARQL:\n" sparql-query)
   (try
     (if USE-LOCAL-GRAPHDB
-      (graphdb "dbpedia" sparql-query)
+      ;;(graphdb "dbpedia" sparql-query)
       (dbpedia sparql-query))
     (catch Exception e
       (do
@@ -40,6 +39,6 @@
         []))))
 
 (defn -main
-  "I don't do a whole lot."
+  "SPARQL example"
   [& _]
   (println (sparql-endpoint "select * { ?s ?p ?o } limit 10")))
