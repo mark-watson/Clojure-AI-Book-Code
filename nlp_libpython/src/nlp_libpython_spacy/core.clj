@@ -29,6 +29,9 @@
 ;;  (text->entities test-text)
 	       
 (defn -main
-  [& args]
-  (println (text->entities test-text)))
+  [& _]
+  (println (text->entities test-text))
+  (println (text->tokens-and-pos test-text))
+  (println (text->pos test-text))
+  (println (text->tokens test-text)))
   

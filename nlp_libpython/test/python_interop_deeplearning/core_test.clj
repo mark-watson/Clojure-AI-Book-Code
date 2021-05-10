@@ -1,7 +1,9 @@
-(ns python-interop-deeplearning.core-test
-  (:require [clojure.test :refer :all]
-            [python-interop-deeplearning.core :refer :all]))
+(ns nlp-libpython-spacy.core-test
+  (:require [clojure.test :as test]
+            [nlp-libpython-spacy.core :as sp]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(def test-text "John Smith worked for IBM in Mexico last year and earned $1 million in salary and bonuses.")
+
+(test/deftest a-test
+  (test/testing "FIXME, I fail."
+    (test/is (= 033 (count (sp/text->tokens test-text))))))

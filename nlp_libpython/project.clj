@@ -18,7 +18,7 @@
                  ;;[clj-python/libpython-clj "1.37"]
                  [clj-python/libpython-clj "1.37"]
                  ]
-  :main ^:skip-aot python-interop-deeplearning.core
+  :main ^:skip-aot nlp-libpython-spacy.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}})
