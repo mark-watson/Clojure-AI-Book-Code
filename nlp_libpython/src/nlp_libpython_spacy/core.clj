@@ -11,22 +11,18 @@
 (defn text->tokens [text]
   (map (fn [token] (py.- token text))
        (nlp text)))
-;;  (text->tokens test-text)
 
 (defn text->pos [text]
   (map (fn [token] (py.- token pos_))
        (nlp text)))
-;;  (text->pos test-text)
   
 (defn text->tokens-and-pos [text]
   (map (fn [token] [(py.- token text) (py.- token pos_)])
        (nlp text)))
-;;  (text->tokens-and-pos test-text)
 
 (defn text->entities [text]
   (map (fn [entity] (py.- entity label_))
        (py.- (nlp text) ents)))
-;;  (text->entities test-text)
 	       
 (defn -main
   [& _]

@@ -17,7 +17,7 @@
 (defn query "SPARQL query" [sparql-query]
   (results->clj (. model query sparql-query)))
 
-(defn query-remote "remote service like DBedia, etc." [remote-service sparql-query]
+(defn query-remote "remote service like DBPedia, etc." [remote-service sparql-query]
   (results->clj (. model queryRemote remote-service sparql-query)))
 
 (defn query-dbpedia [sparql-query]
