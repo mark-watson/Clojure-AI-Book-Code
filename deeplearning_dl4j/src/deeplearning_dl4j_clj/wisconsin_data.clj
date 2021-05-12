@@ -1,16 +1,24 @@
 (ns deeplearning-dl4j-clj.wisconsin-data
   (:import [org.datavec.api.split FileSplit]
-           [org.deeplearning4j.datasets.datavec RecordReaderDataSetIterator]
-           [org.datavec.api.records.reader.impl.csv CSVRecordReader]
-           [org.deeplearning4j.nn.conf NeuralNetConfiguration$Builder]
-           [org.deeplearning4j.nn.conf.layers OutputLayer$Builder DenseLayer$Builder]
+           [org.deeplearning4j.datasets.datavec
+            RecordReaderDataSetIterator]
+           [org.datavec.api.records.reader.impl.csv
+            CSVRecordReader]
+           [org.deeplearning4j.nn.conf
+            NeuralNetConfiguration$Builder]
+           [org.deeplearning4j.nn.conf.layers
+            OutputLayer$Builder DenseLayer$Builder]
            [org.deeplearning4j.nn.weights WeightInit]
            [org.nd4j.linalg.activations Activation]
-           [org.nd4j.linalg.lossfunctions LossFunctions$LossFunction]
-           [org.deeplearning4j.optimize.listeners ScoreIterationListener]
-           [org.deeplearning4j.nn.multilayer MultiLayerNetwork]
+           [org.nd4j.linalg.lossfunctions
+            LossFunctions$LossFunction]
+           [org.deeplearning4j.optimize.listeners
+            ScoreIterationListener]
+           [org.deeplearning4j.nn.multilayer
+            MultiLayerNetwork]
            [java.io File]
-           [org.nd4j.linalg.learning.config Adam Sgd AdaDelta AdaGrad AdaMax Nadam NoOp]))
+           [org.nd4j.linalg.learning.config Adam Sgd
+            AdaDelta AdaGrad AdaMax Nadam NoOp]))
 
 (def numHidden 3)
 (def numOutputs 1)
@@ -27,11 +35,16 @@
   "Using DL4J with Wisconsin data"
   [& args]
   (let [recordReader (new CSVRecordReader)
-        _ (. recordReader initialize (new FileSplit (new File "data/", "training.csv")))
-        trainIter (new RecordReaderDataSetIterator recordReader batchSize labelIndex numClasses)
+        _ (. recordReader
+             initialize
+             (new FileSplit (new File "data/", "training.csv")))
+        trainIter (new RecordReaderDataSetIterator recordReader
+                       batchSize labelIndex numClasses)
         recordReaderTest (new CSVRecordReader)
-        _ (. recordReaderTest initialize (new FileSplit (new File "data/", "testing.csv")))
-        testIter (new RecordReaderDataSetIterator recordReaderTest batchSize labelIndex numClasses)
+        _ (. recordReaderTest initialize
+             (new FileSplit (new File "data/", "testing.csv")))
+        testIter (new RecordReaderDataSetIterator
+                      recordReaderTest batchSize labelIndex numClasses)
         conf (->
                (new NeuralNetConfiguration$Builder)
                (.seed initial-seed)
@@ -48,7 +61,8 @@
                      (.build)))
                (.layer
                  1,
-                 (-> (new OutputLayer$Builder LossFunctions$LossFunction/MCXENT)
+                 (-> (new OutputLayer$Builder
+                          LossFunctions$LossFunction/MCXENT)
                      (.nIn numHidden)
                      (.nOut numClasses)
                      (.activation Activation/SOFTMAX)
@@ -64,11 +78,15 @@
             features (. ds getFeatures)
             labels (. ds getLabels)
             predicted (. model output features false)]
-        (doseq [i (range 0 46 2)] ;; 23 test samples in data/testing.csv
+        ;; 23 test samples in data/testing.csv:
+        (doseq [i (range 0 46 2)]
           (println
             "desired output: [" (. labels getDouble i)
             (. labels getDouble (+ i 1)) "]"
             "predicted output: [" 
-           (format "%1.3f" (. predicted getDouble i))
-           (format "%1.3f" (. predicted getDouble (+ i 1))) "]"))))))
+            (format "%1.3f"
+                    (. predicted getDouble i))
+            (format "%1.3f"
+                    (. predicted getDouble
+                       (+ i 1))) "]"))))))
 
