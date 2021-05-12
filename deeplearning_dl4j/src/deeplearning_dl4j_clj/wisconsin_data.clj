@@ -81,12 +81,12 @@
         ;; 23 test samples in data/testing.csv:
         (doseq [i (range 0 46 2)]
           (println
-            "desired output: [" (. labels getDouble i)
+            "target: [" (. labels getDouble i)
             (. labels getDouble (+ i 1)) "]"
-            "predicted output: [" 
-            (format "%1.3f"
+            "predicted : [" 
+            (format "%1.2f"
                     (. predicted getDouble i))
-            (format "%1.3f"
+            (format "%1.2f"
                     (. predicted getDouble
                        (+ i 1))) "]"))))))
 
