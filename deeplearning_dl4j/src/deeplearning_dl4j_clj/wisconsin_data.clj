@@ -64,10 +64,11 @@
             features (. ds getFeatures)
             labels (. ds getLabels)
             predicted (. model output features false)]
-        (doseq [i (range 0 52 2)]                           ;; 26 test samples in data/testing.csv
+        (doseq [i (range 0 46 2)] ;; 23 test samples in data/testing.csv
           (println
             "desired output: [" (. labels getDouble i)
             (. labels getDouble (+ i 1)) "]"
-            "predicted output: [" (. predicted getDouble i)
-            (. predicted getDouble (+ i 1)) "]"))))))
+            "predicted output: [" 
+           (format "%1.3f" (. predicted getDouble i))
+           (format "%1.3f" (. predicted getDouble (+ i 1))) "]"))))))
 

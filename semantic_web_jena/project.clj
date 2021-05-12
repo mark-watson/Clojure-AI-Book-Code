@@ -11,7 +11,5 @@
                  [org.apache.derby/derby "10.15.2.0"]
                  [org.apache.derby/derbytools "10.15.2.0"]
                  [org.apache.derby/derbyclient "10.15.2.0"]
-                 [org.apache.jena/apache-jena-libs "3.17.0" :extension "pom"]
-                 ;[org.apache.jena/apache-jena "4.0.0"]
-                 ]
+                 [org.apache.jena/apache-jena-libs "3.17.0" :extension "pom"]]
   :repl-options {:init-ns semantic-web-jena-clj.core})

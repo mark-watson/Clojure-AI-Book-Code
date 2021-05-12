@@ -6,12 +6,10 @@
 
 ;; Copied from https://github.com/mark-watson/clj-sparql
 
-(def USE-LOCAL-GRAPHDB true)
+(def USE-LOCAL-GRAPHDB false)
 
 (defn dbpedia [sparql-query]
-  ;;(let [q (str "https://dbpedia.org//sparql?output=csv&query=" (url-encode sparql-query))
-  (let [q (str "http://127.0.0.1:8080/sparql?output=csv&query=" (url-encode sparql-query))
-        _ (println q)
+  (let [q (str "https://dbpedia.org//sparql?output=csv&query=" (url-encode sparql-query))
         response (client/get q)
         body (:body response)]
     (csv/read-csv body)))
@@ -29,7 +27,7 @@
 (defn sparql-endpoint [sparql-query]
   (try
     (if USE-LOCAL-GRAPHDB
-      ;;(graphdb "dbpedia" sparql-query)
+      (graphdb "dbpedia" sparql-query)
       (dbpedia sparql-query))
     (catch Exception e
       (do
