@@ -1,35 +1,33 @@
-(ns webscraping.core)
+(ns webscraping.core
+  (:require [clojure.string :as str]))
 
 (import (org.jsoup Jsoup))
 (import (org.jsoup.nodes Document))
 (import (org.jsoup.nodes Element))
 (import (org.jsoup.select Elements))
 
+(defn get-html-anchors [jsoup-web-page-contents]
+  (let [anchors (. jsoup-web-page-contents select "a[href]")]
+    (for [anchor anchors]
+      (let [anchor-text (. (first (. anchor childNodes)) text)
+            anchor-uri (. (first (. anchor childNodes)) baseUri)]
+        {:text (str/trim anchor-text) :uri anchor-uri}))))
+
 (defn -main
   "I don't do a whole lot."
   [& _]
-  (let [doc (. Jsoup connect "https://markwatson.com")
-        _ (. doc userAgent
-             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.0; rv:77.0) Gecko/20100101 Firefox/77.0")
-        _ (. doc timeout 20000)
-        web-page-contents (. doc get)
-        news-headlines (. web-page-contents select "div p")
-        headlines-text (map (fn [x] (.text x)) news-headlines)
-        all_page_text (. web-page-contents text)
-        anchors (. web-page-contents select "a[href]")
-        anchor-1 (first anchors)
-        anchor-1-text (. (first (. anchor-1 childNodes)) text)
-        anchor-1-uri (. (first (. anchor-1 childNodes)) baseUri)
-        ;a1-cnode (. text (first (. anchor-1 childNodes)))
-        ;a1-uri (. baseUri (first (. anchor-1 childNodes)))
-        ]
+  (let [doc
+        (->
+          (. Jsoup connect "https://markwatson.com")
+          (.userAgent
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.0; rv:77.0) Gecko/20100101 Firefox/77.0")
+          (.timeout 20000)
+          (.get))
+        all-page-text (. doc text)
+        anchors (get-html-anchors doc)]
     ;;(println web-page-contents)
-    (println news-headlines)
-    (println headlines-text)
-    (println all_page_text)
+    (println all-page-text)
     (println anchors)
-    (println anchor-1)
-    (println anchor-1-text)
-    ;(println a1-cnode)
-    ;(println a1-uri)
-    ))
+    (println 'done)
+    {:page-text all-page-text :anchors anchors}))
+
