@@ -1,14 +1,22 @@
 # knowledge_graph_navigator_clj
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure library designed automate collecting information
+from SPARQL endpoints.
 
 ## Usage
 
-FIXME
+Run the tests using:
+
+    lein test
+
+or run a simple main demo program using:
+
+    lein run
+
 
 ## License
 
-Copyright © 2021 FIXME
+Copyright © 2021 Mark Watson
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at

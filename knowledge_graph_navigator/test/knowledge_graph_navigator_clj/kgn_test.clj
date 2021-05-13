@@ -6,14 +6,14 @@
 
 
 (test/deftest get-relations-test
-    (test/testing "FIXME"
+    (test/testing "test dbpedia-get-relationships"
       (pp/pprint (enitites/dbpedia-get-relationships
                 "<http://dbpedia.org/resource/Bill_Gates>"
                 "<http://dbpedia.org/resource/Microsoft>"))
       (test/is (= 0 0))))
   
 (test/deftest relations-test
-  (test/testing "FIXME"
+  (test/testing "test entity-results->relationship-links"
     (pp/pprint (enitites/entity-results->relationship-links
               ["http://dbpedia.org/resource/Bill_Gates"
                "http://dbpedia.org/resource/Microsoft"]))
@@ -21,10 +21,11 @@
 
 
 (test/deftest rtop-level-test
-  (test/testing "FIXME"
+  (test/testing "Top level test"
     (let [results
           (kgn/kgn {:People       ["Bill Gates" "Steve Jobs" "Melinda Gates"]
                     :Organization ["Microsoft"]
                     :Place        ["California"]})]
+      (println results)
       (test/is (= (count results) 2)))))
 

@@ -2,11 +2,13 @@
   (:require [clj-http.client :as client])
   (:require clojure.stacktrace)
   (:require [cemerick.url :refer (url-encode)])
-  (:require [clojure.data.csv :as csv]))
+  (:require [clojure.data.csv :as csv])
+  (:require [semantic-web-jena-clj.core :as jena]))
 
 ;; Copied from https://github.com/mark-watson/clj-sparql
 
 (def USE-LOCAL-GRAPHDB false)
+(def USE-CACHING true)                                      ;; use Jena wrapper
 
 (defn dbpedia [sparql-query]
   (let [q (str "https://dbpedia.org//sparql?output=csv&query=" (url-encode sparql-query))
@@ -28,7 +30,9 @@
   (try
     (if USE-LOCAL-GRAPHDB
       (graphdb "dbpedia" sparql-query)
-      (dbpedia sparql-query))
+      (if USE-CACHING
+        (jena/query-dbpedia sparql-query)
+        (dbpedia sparql-query)))
     (catch Exception e
       (do
         (println "WARNING: a SPARQL query failed:\n" sparql-query)
