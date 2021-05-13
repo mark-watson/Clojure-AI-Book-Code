@@ -2,32 +2,30 @@
   (:require [clojure.string :as str]))
 
 (import (org.jsoup Jsoup))
-(import (org.jsoup.nodes Document))
-(import (org.jsoup.nodes Element))
-(import (org.jsoup.select Elements))
 
 (defn get-html-anchors [jsoup-web-page-contents]
   (let [anchors (. jsoup-web-page-contents select "a[href]")]
     (for [anchor anchors]
       (let [anchor-text (. (first (. anchor childNodes)) text)
-            anchor-uri (. (first (. anchor childNodes)) baseUri)]
+            anchor-uri-base (. (first (. anchor childNodes)) baseUri)
+            href-attribute (. (. anchor attributes) get "href")
+            anchor-uri
+            (if (str/starts-with? href-attribute "http")
+              href-attribute
+              (str/join "" [anchor-uri-base (. (. anchor attributes) get "href")]))
+            furi (first (. anchor childNodes))]
         {:text (str/trim anchor-text) :uri anchor-uri}))))
 
-(defn -main
-  "I don't do a whole lot."
-  [& _]
+(defn fetch-web-page-data
+  "Get the <a> anchor data and full text from a web URI"
+  [a-uri]
   (let [doc
         (->
-          (. Jsoup connect "https://markwatson.com")
+          (. Jsoup connect a-uri)
           (.userAgent
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.0; rv:77.0) Gecko/20100101 Firefox/77.0")
           (.timeout 20000)
           (.get))
         all-page-text (. doc text)
         anchors (get-html-anchors doc)]
-    ;;(println web-page-contents)
-    (println all-page-text)
-    (println anchors)
-    (println 'done)
     {:page-text all-page-text :anchors anchors}))
-
