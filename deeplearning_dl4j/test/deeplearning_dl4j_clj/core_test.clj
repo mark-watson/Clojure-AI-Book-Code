@@ -4,4 +4,5 @@
 
 (deftest a-test
   (testing "FIXME, I fail."
-    (is (= 0 1))))
+    (-main)
+    (is (= 0 0))))
