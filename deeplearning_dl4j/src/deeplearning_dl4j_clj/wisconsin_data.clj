@@ -18,7 +18,7 @@
             MultiLayerNetwork]
            [java.io File]
            [org.nd4j.linalg.learning.config Adam Sgd
-                                            AdaDelta AdaGrad AdaMax Nadam NoOp]))
+            AdaDelta AdaGrad AdaMax Nadam NoOp]))
 
 (def numHidden 3)
 (def numOutputs 1)
@@ -31,26 +31,20 @@
 (def numClasses 2)
 
 
-
-(defn wisconsin-experiment
+(defn -main
   "Using DL4J with Wisconsin data"
-  []
-  (let [recordReader
-        (->
-          (new CSVRecordReader)
-          (.initialize
-            (new FileSplit (new File "data/", "training.csv"))))
+  [& args]
+  (let [recordReader (new CSVRecordReader)
+        _ (. recordReader
+             initialize
+             (new FileSplit (new File "data/", "training.csv")))
         trainIter (new RecordReaderDataSetIterator recordReader
                        batchSize labelIndex numClasses)
-        _ (println trainIter)
-        recordReaderTest
-        (->
-          (new CSVRecordReader)
-          (.initialize
-            (new FileSplit (new File "data/", "testing.csv"))))
+        recordReaderTest (new CSVRecordReader)
+        _ (. recordReaderTest initialize
+             (new FileSplit (new File "data/", "testing.csv")))
         testIter (new RecordReaderDataSetIterator
                       recordReaderTest batchSize labelIndex numClasses)
-        _ (println testIter)
         conf (->
                (new NeuralNetConfiguration$Builder)
                (.seed initial-seed)
@@ -76,7 +70,6 @@
                (.build))
         model (new MultiLayerNetwork conf)
         score-listener (ScoreIterationListener. 100)]
-    _ (println conf)
     (. model init)
     (. model setListeners (list score-listener))
     (. model fit trainIter 10)
@@ -97,7 +90,3 @@
                     (. predicted getDouble
                        (+ i 1))) "]"))))))
 
-(defn -main
-  "Using DL4J with Wisconsin data"
-  [& _]
-  (wisconsin-experiment))
