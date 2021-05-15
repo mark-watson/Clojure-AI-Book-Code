@@ -38,7 +38,7 @@
     @relationship-statements))
 
 (defn -main
-  "I don't do a whole lot."
+  "dev/test entity relationships code"
   [& _]
   (println "Testing entity-results->relationship-links")
   (pp/pprint (entity-results->relationship-links ["http://dbpedia.org/resource/Bill_Gates" "http://dbpedia.org/resource/Microsoft"])))

@@ -20,7 +20,7 @@
     results))
 
 (defn -main
-  "I don't do a whole lot."
+  "test/dev entities by name"
   [& _]
   (println (dbpedia-get-entities-by-name "Steve Jobs" "<http://dbpedia.org/ontology/Person>"))
   (println (dbpedia-get-entities-by-name "Microsoft" "<http://dbpedia.org/ontology/Organization>"))
