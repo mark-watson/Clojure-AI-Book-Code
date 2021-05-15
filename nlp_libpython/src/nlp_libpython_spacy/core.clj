@@ -1,6 +1,6 @@
 (ns nlp-libpython-spacy.core
     (:require [libpython-clj.require :refer [require-python]]
-              [libpython-clj.python :as py :refer [py. py.. py.-]]))
+              [libpython-clj.python :as py :refer [py. py.-]]))
 
 (require-python '[spacy :as sp])
 (require-python '[QA :as qa]) ;; loads the local file QA.py
@@ -10,6 +10,7 @@
 (def test-text "John Smith worked for IBM in Mexico last year and earned $1 million in salary and bonuses.")
 
 (defn text->tokens [text]
+  ;; use py-. to 
   (map (fn [token] (py.- token text))
        (nlp text)))
 
