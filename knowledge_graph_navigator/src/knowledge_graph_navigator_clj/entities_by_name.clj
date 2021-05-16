@@ -1,21 +1,18 @@
 (ns knowledge-graph-navigator-clj.entities-by-name
   (:require [knowledge-graph-navigator-clj.sparql :as sparql])
+  (:require [knowledge-graph-navigator-clj.sparql-utils :as utils])
   (:require [clojure.pprint :as pp])
   (:require clojure.string))
 
 (defn dbpedia-get-entities-by-name [name dbpedia-type]
   ;(println "** dbpedia-get-entities-by-name: name=" name "dbpedia-type=" dbpedia-type)
   (let [sparql-query
-        (clojure.string/join
-          ""
-          ["select distinct ?s ?comment where { ?s <http://www.w3.org/2000/01/rdf-schema#label> \""
-           name
-           "\"@en . ?s <http://www.w3.org/2000/01/rdf-schema#comment>  ?comment  . FILTER  (lang(?comment) = \"en\") . ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> "
-           dbpedia-type
-           ". }"])
+        (utils/sparql_template
+          "entities_by_name.sparql"
+          {"<NAME>" name "<ENTITY_TYPE>" dbpedia-type})
         results (sparql/sparql-endpoint sparql-query)]
     ;(println "Generated SPARQL to get DBPedia entity URIs from a name:")
-    ;(println (colorize/colorize-sparql sparql-query))
+    (println sparql-query)
     ;(println "Results:") (pprint results)
     results))
 

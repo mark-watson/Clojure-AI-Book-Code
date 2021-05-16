@@ -1,14 +1,14 @@
 (ns knowledge-graph-navigator-clj.relationships
   (:require [knowledge-graph-navigator-clj.sparql :as sparql]) ;; for non-cached
+  (:require [knowledge-graph-navigator-clj.sparql-utils :as utils])
   (:require [clojure.pprint :as pp])
   (:require clojure.string))
 
 (defn dbpedia-get-relationships [s-uri o-uri]
   (let [query
-        (clojure.string/join
-          ""
-          ["SELECT DISTINCT ?p {{  "
-           s-uri " ?p " o-uri " . FILTER (!regex(str(?p), \"wikiPage\", \"i\")) }} LIMIT 5"])
+        (utils/sparql_template
+          "relationships.sparql"
+          {"<URI1>" s-uri "<URI2>" o-uri})
         results (sparql/sparql-endpoint query)]
     (map
       (fn [u] (clojure.string/join "" ["<" u ">"]))

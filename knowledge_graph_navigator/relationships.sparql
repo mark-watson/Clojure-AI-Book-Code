@@ -1,0 +1,6 @@
+SELECT DISTINCT ?p {
+    <URI1>
+       ?p
+       <URI2> .
+    FILTER (!regex(str(?p),"wikiPage","i"))
+} LIMIT 5

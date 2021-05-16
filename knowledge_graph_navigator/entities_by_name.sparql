@@ -1,0 +1,10 @@
+select distinct ?s ?comment where {
+    ?s <http://www.w3.org/2000/01/rdf-schema#label>
+            "<NAME>"@en .
+    ?s <http://www.w3.org/2000/01/rdf-schema#comment>
+            ?comment  .
+    FILTER  (lang(?comment) = "en") .
+    ?s
+        <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+        <ENTITY_TYPE> .
+}
