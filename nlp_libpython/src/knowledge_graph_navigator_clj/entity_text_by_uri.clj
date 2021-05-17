@@ -5,14 +5,11 @@
   (:require clojure.string))
 
 (defn dbpedia-get-entity-text-by-name [name dbpedia-type]
-  ;(println "** dbpedia-get-entities-by-name: name=" name "dbpedia-type=" dbpedia-type)
   (let [sparql-query
         (utils/sparql_template
           "get_entity_text.sparql"
           {"<ENTITY_NAME>" name "<ENTITY_DBPEDIA_TYPE_URI>" dbpedia-type})
-        _ (println "++++  sparql-query-text:" sparql-query)
-        results (sparql/dbpedia sparql-query)
-        _ (println "++++  results:" results)]
+        results (sparql/dbpedia sparql-query)]
     (clojure.string/join " " (map second (rest results)))))
 
 (defn -main

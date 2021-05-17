@@ -39,7 +39,6 @@
          "ORG"    "<http://dbpedia.org/ontology/Organization>"
          "GPE"    "<http://dbpedia.org/ontology/Place>"}
         entities (text->entities natural-language-query)
-        _ (println "$$ entities:" entities)
         get-text-fn (fn [entity]
                       (println "$ $ entity:" entity "val:" (get entity-map (second entity)))
                       (clojure.string/join
@@ -53,7 +52,7 @@
           " "
           (for [entity entities]
             (get-text-fn entity)))
-        _ (println "$$ context-text:" context-text)
+        _ (println "* * context text:" context-text)
         answer (qa natural-language-query context-text)]
     answer))
 
@@ -67,5 +66,6 @@
       "Since last year, Bill lives in Seattle. He likes to skateboard.")
   (qa "what does Bill enjoy?"
       "Since last year, Bill lives in Seattle. He likes to skateboard.")
-  (spacy-qa-demo "what is the population of Paris?"))
+  (spacy-qa-demo "what is the population of Paris?")
+  (spacy-qa-demo "where is IBM is headquartered?"))
   
