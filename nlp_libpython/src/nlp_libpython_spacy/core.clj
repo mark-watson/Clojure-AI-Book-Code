@@ -24,8 +24,11 @@
        (nlp text)))
 
 (defn text->entities [text]
-  (map (fn [entity] (py.- entity label_))
-       (py.- (nlp text) ents)))
+  (let [doc (nlp text)
+        entities (py.- (nlp text) ents)]
+    (println "** entities:" entities)
+    (map (fn [entity] (py.- entity label_))
+         (py.- (nlp text) ents))))
 
 (defn qa
   "Use Transformer model for question answering"
@@ -58,11 +61,12 @@
 (defn -main
   [& _]
   (println (text->entities test-text))
-  (println (text->tokens-and-pos test-text))
-  (println (text->pos test-text))
-  (println (text->tokens test-text))
-  (qa "where does Bill call home?"
-      "Since last year, Bill lives in Seattle. He likes to skateboard.")
-  (qa "what does Bill enjoy?"
-      "Since last year, Bill lives in Seattle. He likes to skateboard."))
+  ;(println (text->tokens-and-pos test-text))
+  ;(println (text->pos test-text))
+  ;(println (text->tokens test-text))
+  ;(qa "where does Bill call home?"
+  ;    "Since last year, Bill lives in Seattle. He likes to skateboard.")
+  ;(qa "what does Bill enjoy?"
+  ;    "Since last year, Bill lives in Seattle. He likes to skateboard.")
+  )
   
