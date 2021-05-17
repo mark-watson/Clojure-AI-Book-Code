@@ -15,9 +15,11 @@
                 "clojars" {:url "https://clojars.org/repo"}}
 
    :dependencies [[org.clojure/clojure "1.10.1"]
-                 ;;[clj-python/libpython-clj "1.37"]
-                 [clj-python/libpython-clj "1.37"]
-                 ]
+                  [clj-python/libpython-clj "1.37"]
+                  [clj-http "3.10.3"]
+                  [com.cemerick/url "0.1.1"]
+                  [org.clojure/data.csv "1.0.0"]
+                  [org.clojure/data.json "1.0.0"]]
   :main ^:skip-aot nlp-libpython-spacy.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all

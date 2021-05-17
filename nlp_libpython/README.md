@@ -1,36 +1,35 @@
 # python_interop_deeplearning
 
-FIXME: description
+This project contains 3 demos that I hope will be easily hackable and thus
+useful to your projects:
+
+- Using the spaCY NLP library
+- Using the Hugging Face Transformer library for question answering
+- Combined spaCy and Hugging Face Transformer library question answering demo
+
+Note: the last example (Combined spaCy and Hugging Face Transformer library question answering demo)
+uses material from later in the book on Knowledge Graph and semantic web technologies. I use a bit of
+code developed later in the book without explanation to get descriptive text for people,
+locations, and organizations.
 
 ## Installation
 
-Download from http://example.com/FIXME.
+You will probably want to use either a Docker container of a separate VPS server.
+
+Please see INSTALL_MLW.txt for my notes on setting up a GCP VPS.
+
+There is no reason why you couldn't just install everything on your laptop
+(but expect difficulties if you use an M1 ARM MacBook), but I personally like
+using VPS servers that I can turn on just when I need them: low cost and
+convenient.
 
 ## Usage
 
-FIXME: explanation
-
-    $ java -jar python_interop_deeplearning-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+    lein run
 
 ## License
 
-Copyright © 2021 FIXME
+Copyright © 2021 Mark Watson
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at

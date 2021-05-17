@@ -1,9 +1,10 @@
 (ns nlp-libpython-spacy.core
-    (:require [libpython-clj.require :refer [require-python]]
-              [libpython-clj.python :as py :refer [py. py.-]]))
+  (:require [libpython-clj.require :refer [require-python]]
+            [libpython-clj.python :as py :refer [py. py.-]])
+  (:require [knowledge-graph-navigator-clj.entity-text-by-uri :as kgn]))
 
 (require-python '[spacy :as sp])
-(require-python '[QA :as qa]) ;; loads the local file QA.py
+(require-python '[QA :as qa])                               ;; loads the local file QA.py
 
 (def nlp (sp/load "en_core_web_sm"))
 
@@ -17,7 +18,7 @@
 (defn text->pos [text]
   (map (fn [token] (py.- token pos_))
        (nlp text)))
-  
+
 (defn text->tokens-and-pos [text]
   (map (fn [token] [(py.- token text) (py.- token pos_)])
        (nlp text)))
@@ -29,7 +30,30 @@
 (defn qa
   "Use Transformer model for question answering"
   [question context-text]
-  (qa/answer question context-text)) ;; prints to stdout and returns a map
+  (qa/answer question context-text))                        ;; prints to stdout and returns a map
+
+(defn spacy-qa-demo [natural-language-query]
+  (let [entity-map
+        {"PERSON" "<http://dbpedia.org/ontology/Person>"
+         "GPE"    "<http://dbpedia.org/ontology/Organization>"
+         "ORG"    "<http://dbpedia.org/ontology/Place>"}
+        entities (text->entities natural-language-query)
+        _ (println "$$ entities:" entities)
+        get-text-fn (fn [entity-type]
+                      (clojure.string/join
+                        " "
+                        (for [entity entities]
+                          (clojure.string/join
+                            " "
+                            (for [hname (get entities entity-type [])]
+                              (kgn/dbpedia-get-entity-text-by-name hname entity-type))))))
+        context-text
+        (clojure.string/join
+          " "
+          [(get-text-fn "PERSON") (get-text-fn "GPE") (get-text-fn "ORG")])
+        _ (println "$$ context-text:" context-text)
+        answer (qa natural-language-query context-text)]
+    answer))
 
 (defn -main
   [& _]
