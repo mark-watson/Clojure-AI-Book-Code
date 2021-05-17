@@ -13,9 +13,9 @@
         _ (println "++++  sparql-query-text:" sparql-query)
         results (sparql/dbpedia sparql-query)
         _ (println "++++  results:" results)]
-    results))
+    (clojure.string/join " " (map second (rest results)))))
 
 (defn -main
   "test/dev entities by name"
   [& _]
-  (println (dbpedia-get-entities-by-name "Steve Jobs" "<http://dbpedia.org/ontology/Person>")))
+  (println (dbpedia-get-entity-text-by-name "Paris" "<http://dbpedia.org/ontology/Place>")))

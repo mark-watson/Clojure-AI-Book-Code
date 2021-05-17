@@ -24,12 +24,10 @@
        (nlp text)))
 
 (defn text->entities [text]
-  (let [doc (nlp text)
-        entities (py.- (nlp text) ents)]
-    (println "** entities:" entities)
-    (map (fn [entity] (py.- entity label_))
-         (py.- (nlp text) ents))))
-
+  (println "!! text/entities text:" text)
+  (map (fn [entity] [(py.- entity text)  (py.- entity label_)])
+       (py.- (nlp text) ents)))
+  
 (defn qa
   "Use Transformer model for question answering"
   [question context-text]
@@ -38,22 +36,23 @@
 (defn spacy-qa-demo [natural-language-query]
   (let [entity-map
         {"PERSON" "<http://dbpedia.org/ontology/Person>"
-         "GPE"    "<http://dbpedia.org/ontology/Organization>"
-         "ORG"    "<http://dbpedia.org/ontology/Place>"}
+         "ORG"    "<http://dbpedia.org/ontology/Organization>"
+         "GPE"    "<http://dbpedia.org/ontology/Place>"}
         entities (text->entities natural-language-query)
         _ (println "$$ entities:" entities)
-        get-text-fn (fn [entity-type]
+        get-text-fn (fn [entity]
+                      (println "$ $ entity:" entity "val:" (get entity-map (second entity)))
                       (clojure.string/join
                         " "
                         (for [entity entities]
-                          (clojure.string/join
-                            " "
-                            (for [hname (get entities entity-type [])]
-                              (kgn/dbpedia-get-entity-text-by-name hname entity-type))))))
+                          (kgn/dbpedia-get-entity-text-by-name
+                           (first entity)
+                           (get entity-map (second entity))))))
         context-text
         (clojure.string/join
           " "
-          [(get-text-fn "PERSON") (get-text-fn "GPE") (get-text-fn "ORG")])
+          (for [entity entities]
+            (get-text-fn entity)))
         _ (println "$$ context-text:" context-text)
         answer (qa natural-language-query context-text)]
     answer))
@@ -61,6 +60,7 @@
 (defn -main
   [& _]
   (println (text->entities test-text))
+<<<<<<< HEAD
   ;(println (text->tokens-and-pos test-text))
   ;(println (text->pos test-text))
   ;(println (text->tokens test-text))
@@ -69,4 +69,14 @@
   ;(qa "what does Bill enjoy?"
   ;    "Since last year, Bill lives in Seattle. He likes to skateboard.")
   )
+=======
+  (println (text->tokens-and-pos test-text))
+  (println (text->pos test-text))
+  (println (text->tokens test-text))
+  (qa "where does Bill call home?"
+      "Since last year, Bill lives in Seattle. He likes to skateboard.")
+  (qa "what does Bill enjoy?"
+      "Since last year, Bill lives in Seattle. He likes to skateboard.")
+  (spacy-qa-demo "what is the population of Paris?"))
+>>>>>>> 5f0254bca75ece6948052295f0ddf0dd3f4e720c
   
