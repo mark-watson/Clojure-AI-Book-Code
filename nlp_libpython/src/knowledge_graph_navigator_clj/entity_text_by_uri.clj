@@ -15,4 +15,6 @@
 (defn -main
   "test/dev entities by name"
   [& _]
-  (println (dbpedia-get-entity-text-by-name "Paris" "<http://dbpedia.org/ontology/Place>")))
+  (println (dbpedia-get-entity-text-by-name "Paris" "<http://dbpedia.org/ontology/Place>"))
+  (println (dbpedia-get-entity-text-by-name "IBM" "<http://dbpedia.org/ontology/Organization>"))
+  (println (dbpedia-get-entity-text-by-name "Bill Gates" "<http://dbpedia.org/ontology/Person>")))
