@@ -58,14 +58,15 @@
 
 (defn -main
   [& _]
-  (println (text->entities test-text))
-  (println (text->tokens-and-pos test-text))
-  (println (text->pos test-text))
-  (println (text->tokens test-text))
-  (qa "where does Bill call home?"
-      "Since last year, Bill lives in Seattle. He likes to skateboard.")
-  (qa "what does Bill enjoy?"
-      "Since last year, Bill lives in Seattle. He likes to skateboard.")
+  ;(println (text->entities test-text))
+  ;(println (text->tokens-and-pos test-text))
+  ;(println (text->pos test-text))
+  ;(println (text->tokens test-text))
+  ;(qa "where does Bill call home?"
+  ;    "Since last year, Bill lives in Seattle. He likes to skateboard.")
+  ;(qa "what does Bill enjoy?"
+  ;    "Since last year, Bill lives in Seattle. He likes to skateboard.")
   (spacy-qa-demo "what is the population of Paris?")
   (spacy-qa-demo "where is IBM is headquartered?"))
+
   
