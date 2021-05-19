@@ -40,7 +40,6 @@
          "GPE"    "<http://dbpedia.org/ontology/Place>"}
         entities (text->entities natural-language-query)
         get-text-fn (fn [entity]
-                      (println "$ $ entity:" entity "val:" (get entity-map (second entity)))
                       (clojure.string/join
                         " "
                         (for [entity entities]
@@ -52,7 +51,6 @@
           " "
           (for [entity entities]
             (get-text-fn entity)))
-        _ (println "* * context text:" context-text)
         answer (qa natural-language-query context-text)]
     answer))
 
