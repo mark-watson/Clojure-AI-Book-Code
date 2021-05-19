@@ -39,13 +39,14 @@
          "ORG"    "<http://dbpedia.org/ontology/Organization>"
          "GPE"    "<http://dbpedia.org/ontology/Place>"}
         entities (text->entities natural-language-query)
-        get-text-fn (fn [entity]
-                      (clojure.string/join
-                        " "
-                        (for [entity entities]
-                          (kgn/dbpedia-get-entity-text-by-name
-                           (first entity)
-                           (get entity-map (second entity))))))
+        get-text-fn
+        (fn [entity]
+          (clojure.string/join
+           " "
+           (for [entity entities]
+             (kgn/dbpedia-get-entity-text-by-name
+              (first entity)
+              (get entity-map (second entity))))))
         context-text
         (clojure.string/join
           " "
