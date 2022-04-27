@@ -6,8 +6,8 @@
   :source-paths      ["src"]
   :java-source-paths ["src-java"]
   :javac-options     ["-target" "1.8" "-source" "1.8"]
-  :dependencies [[org.clojure/clojure "1.10.1"]
-                 [clj-http "3.10.3"]
+  :dependencies [[org.clojure/clojure "1.11.1"]
+                 [clj-http "3.12.3"]
                  [com.cemerick/url "0.1.1"]
                  [org.clojure/data.csv "1.0.0"]
                  [org.clojure/data.json "1.0.0"]
@@ -15,6 +15,6 @@
                  [org.apache.derby/derby "10.15.2.0"]
                  [org.apache.derby/derbytools "10.15.2.0"]
                  [org.apache.derby/derbyclient "10.15.2.0"]
-                 [org.apache.jena/apache-jena-libs "3.17.0" :extension "pom"]]
+                 [org.apache.jena/apache-jena-libs "4.4.0" :extension "pom"]]
   :repl-options {:init-ns knowledge-graph-navigator-clj.kgn}
   :main ^:skip-aot knowledge-graph-navigator-clj.kgn)
