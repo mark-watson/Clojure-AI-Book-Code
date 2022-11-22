@@ -1,5 +1,7 @@
 # Code for my book "Practical Artificial Intelligence Programming With Clojure"
 
-You can download PDF/ePub/MOBI versions of my book for free on my
-website [https://markwatson.com](https://markwatson.com) or if you would like to pay me for a copy then please visit [https://leanpub.com/clojureai](https://leanpub.com/clojureai)
+You can read all of my books for free on my
+website [https://markwatson.com](https://markwatson.com).
+
+If you would like to support my work please consider purchasing my books on [Leanpub](https://leanpub.com/u/markwatson) and star my git repositories that you find useful on [GitHub](https://github.com/mark-watson?tab=repositories&q=&type=public). You can also interact with me on social media on [Mastodon](https://mastodon.social/@mark_watson) and [Twitter](https://twitter.com/mark_l_watson).
 
