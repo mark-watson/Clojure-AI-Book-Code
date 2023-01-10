@@ -19,6 +19,7 @@ cd
 vi .profile # edit to add: export PATH=$PATH:~/bin
 lein
 python3 -m pip install numpy nltk spacy
+python3 -m pip install transformers torch
 rm install-clojure
 # install Carin Meier's excellent examples for using many Python libraries:
 git clone https://github.com/gigasquid/libpython-clj-examples.git
