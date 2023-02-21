@@ -1,36 +1,13 @@
 # anomaly_detection_clj
 
-FIXME: description
+# Code for my book "Practical Artificial Intelligence Programming With Clojure"
 
-## Installation
-
-Download from http://example.com/FIXME.
-
-## Usage
-
-FIXME: explanation
-
-    $ java -jar anomaly_detection_clj-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+You can download PDF/ePub/MOBI versions of my book for free on my
+website [https://markwatson.com](https://markwatson.com) or if you would like to pay me for a copy then please visit [https://leanpub.com/clojureai](https://leanpub.com/clojureai)
 
 ## License
 
-Copyright © 2021 FIXME
+Copyright © 2021 Mark Watson
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at
