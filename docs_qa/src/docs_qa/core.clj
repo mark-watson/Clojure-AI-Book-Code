@@ -1,4 +1,6 @@
 (ns docs-qa.core
+  (:require [clojure.java.jdbc :as jdbc]
+            [openai-api.core :refer :all])
   (:gen-class))
 
 (defn -main
