@@ -15,7 +15,8 @@
                     }
            :body   body
            })]
-    ((first ((json/read-str (json-results :body)) "choices")) "text")))
+    (clojure.string/trim
+      ((first ((json/read-str (json-results :body)) "choices")) "text"))))
 
 (defn completions
   "Use the OpenAI API for text completions"
