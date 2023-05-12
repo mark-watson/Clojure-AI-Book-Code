@@ -41,3 +41,11 @@
             60)]
       (println results)
       (is (= 0 0)))))
+
+'(deftest embeddings-test
+  (testing "OpenAI embeddings API"
+    (let [results
+          (openai-api.core/embeddings
+            "Congress ands the PResident agreed to a budget deal.")]
+      (println results)
+      (is (= 0 0)))))

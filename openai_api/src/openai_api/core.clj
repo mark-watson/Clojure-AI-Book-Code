@@ -57,3 +57,21 @@
     (if (nil? ind)
       results
       (subs results 0 ind))))
+
+(defn embeddings [text]
+  (let* [body
+         (str
+          "{\"input\": \"" text "\", \"model\": \"text-embedding-ada-002\"}")
+         ignore (println body)
+         json-results
+         (client/post
+          "https://api.openai.com/v1/embeddings"
+          {:accept :json
+           :headers
+                   {"Content-Type"  "application/json"
+                    "Authorization" (str "Bearer " (System/getenv "OPENAI_KEY"))
+                    }
+           :body   body
+           })]
+        (println json-results)
+        (((json/read-str (json-results :body)) "data") "embedding")))
