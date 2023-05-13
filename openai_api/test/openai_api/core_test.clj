@@ -31,7 +31,7 @@
       (is (= 0 0)))))
 
 
-(deftest question-answering-test
+'(deftest question-answering-test
   (testing "OpenAI question-answering API"
     (let [results
           (openai-api.core/answer-question
@@ -42,10 +42,15 @@
       (println results)
       (is (= 0 0)))))
 
-'(deftest embeddings-test
+(deftest embeddings-test
   (testing "OpenAI embeddings API"
-    (let [results
+    (let [results1
           (openai-api.core/embeddings
-            "Congress ands the PResident agreed to a budget deal.")]
-      (println results)
+            "Congress ands the President agreed to a budget deal.")
+          results2
+          (openai-api.core/embeddings
+           "John and Mary bought a new car.")]
+      ;;(println results1)
+      (println (openai-api.core/dot-product results1 results1))
+      (println (openai-api.core/dot-product results1 results2))
       (is (= 0 0)))))

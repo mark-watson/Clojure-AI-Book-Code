@@ -62,7 +62,6 @@
   (let* [body
          (str
           "{\"input\": \"" text "\", \"model\": \"text-embedding-ada-002\"}")
-         ignore (println body)
          json-results
          (client/post
           "https://api.openai.com/v1/embeddings"
@@ -73,5 +72,7 @@
                     }
            :body   body
            })]
-        (println json-results)
-        (((json/read-str (json-results :body)) "data") "embedding")))
+        ((first ((json/read-str (json-results :body)) "data")) "embedding")))
+
+(defn dot-product [a b]
+  (reduce + (map * a b)))
