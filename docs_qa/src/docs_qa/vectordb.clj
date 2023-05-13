@@ -16,5 +16,25 @@
   (let [chunks (partition-all chunk-size s)]
     (map #(apply str %) chunks)))
 
-(defn openai-embedding-vector [text] 
-  "TBD")
+;; (openai-api.core/embeddings "...")
+;; (openai-api.core/dot-product [] [])
+
+(defn document-texts-from_dir [dir-path]
+  (map #(slurp %) (file-seq (clojure.java.io/file dir-path))))
+
+(defn document-texts-to-chunks [strings]
+  (flatten
+   (map #(break-into-chunks % 200) strings)))
+
+(def directory-path "data")
+
+(def doc-strings (document-texts-from_dir directory-path))
+
+(def doc-chunks (document-texts-to-chunks doc-strings))
+
+(def embeddings
+  (map #(openai-api.core/embeddings %) doc-chunks))
+
+(def embeddings-with-chunk-texts
+  (map vector embeddings doc-chunks))
+
