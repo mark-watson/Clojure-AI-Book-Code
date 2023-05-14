@@ -59,9 +59,13 @@
       (subs results 0 ind))))
 
 (defn embeddings [text]
-  (let* [body
+  (try
+    (println "* text:" text)
+    (let* [body
          (str
-          "{\"input\": \"" text "\", \"model\": \"text-embedding-ada-002\"}")
+          "{\"input\": \"" 
+          (clojure.string/replace text #"[\"]" "")
+          "\", \"model\": \"text-embedding-ada-002\"}")
          json-results
          (client/post
           "https://api.openai.com/v1/embeddings"
@@ -72,7 +76,10 @@
                     }
            :body   body
            })]
-        ((first ((json/read-str (json-results :body)) "data")) "embedding")))
+        ((first ((json/read-str (json-results :body)) "data")) "embedding"))
+    (catch Exception e
+      (println "Error:" (.getMessage e))
+      "")))
 
 (defn dot-product [a b]
   (reduce + (map * a b)))

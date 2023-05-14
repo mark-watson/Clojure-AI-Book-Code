@@ -20,7 +20,7 @@
 ;; (openai-api.core/dot-product [] [])
 
 (defn document-texts-from_dir [dir-path]
-  (map #(slurp %) (file-seq (clojure.java.io/file dir-path))))
+  (map #(slurp %) (rest (file-seq (clojure.java.io/file dir-path)))))
 
 (defn document-texts-to-chunks [strings]
   (flatten
@@ -30,11 +30,13 @@
 
 (def doc-strings (document-texts-from_dir directory-path))
 
-(def doc-chunks (document-texts-to-chunks doc-strings))
+(def doc-chunks
+  (filter #(> (count %) 40) (document-texts-to-chunks doc-strings)))
 
-(def embeddings
+(def chunk-embeddings
   (map #(openai-api.core/embeddings %) doc-chunks))
 
 (def embeddings-with-chunk-texts
-  (map vector embeddings doc-chunks))
+  (map vector chunk-embeddings doc-chunks))
 
+;;(clojure.pprint/pprint (first embeddings-with-chunk-texts))

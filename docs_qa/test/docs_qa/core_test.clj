@@ -6,11 +6,11 @@
 
 (deftest a-test
   (testing "FIXME, I fail."
-    (println
+    '(println
          (openai-api.core/answer-question
           "Where is the Valley of Kings?"
           50))
     (println
-     (docs-qa.vectordb/openai-embedding-vector
-      "Congress increased the spending limit by 1 trillion dollars"))
+     (docs-qa.core/best-vector-matches
+      "What is Chemistry. How useful, really, are the sciences. Is Amyl alcohol is an organic compound?"))
     (is (= 0 0))))
