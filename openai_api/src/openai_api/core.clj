@@ -60,11 +60,11 @@
 
 (defn embeddings [text]
   (try
-    (println "* text:" text)
+    (println "* text:" (clojure.string/replace text #"[\" \n :]" " "))
     (let* [body
          (str
           "{\"input\": \"" 
-          (clojure.string/replace text #"[\"]" "")
+          (clojure.string/replace text #"[\" \n :]" " ")
           "\", \"model\": \"text-embedding-ada-002\"}")
          json-results
          (client/post

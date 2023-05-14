@@ -6,7 +6,9 @@
 
 (defn best-vector-matches [query]
   (print "**count:" (count docs-qa.vectordb/embeddings-with-chunk-texts))
-  (let [query-embedding (openai-api.core/embeddings query)]
+  (clojure.string/join
+   " ."
+   (let [query-embedding (openai-api.core/embeddings query)]
     (map
      second
      (filter
@@ -17,9 +19,30 @@
               query-embedding
               emb)
              0.79)))
-      docs-qa.vectordb/embeddings-with-chunk-texts))))
-  
+      docs-qa.vectordb/embeddings-with-chunk-texts)))))
+
+(defn answer-prompt [prompt]
+  '(openai-api.core/answer-question
+   prompt
+   50)
+  "TBDTBD1234")
+
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (println "Hello, World!"))
+  (loop []
+  (println "Enter a string:")
+  (let [input (read-line)]
+    (if (empty? input)
+      (println "Done.")
+      (do
+        (let [text (best-vector-matches input)
+              prompt
+              (clojure.string/join "\n"
+                                   ["With the following CONTEXT:\n\n"
+                                    text
+                                    "\n\nANSWER:\n\n"
+                                    input])]
+          (println "** PROMPT:" prompt)
+          (println (answer-prompt prompt)))
+          (recur))))))
