@@ -1,6 +1,6 @@
 (ns nlp-libpython-spacy.core
-  (:require [libpython-clj.require :refer [require-python]]
-            [libpython-clj.python :as py :refer [py. py.-]])
+  (:require [libpython-clj2.require :refer [require-python]]
+            [libpython-clj2.python :as py :refer [py. py.-]])
   (:require [knowledge-graph-navigator-clj.entity-text-by-uri :as kgn]))
 
 (require-python '[spacy :as sp])
@@ -66,4 +66,4 @@
   (qa "what does Bill enjoy?"
       "Since last year, Bill lives in Seattle. He likes to skateboard.")
   (spacy-qa-demo "what is the population of Paris?")
-  (spacy-qa-demo "where does Bill Gates Work?"))
+  (spacy-qa-demo "where does Bill Gates work?"))

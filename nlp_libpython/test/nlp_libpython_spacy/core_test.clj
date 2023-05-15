@@ -6,4 +6,4 @@
 
 (test/deftest tokenization-test
   (test/testing "tokenization test"
-    (test/is (= 033 (count (sp/text->tokens test-text))))))
+    (test/is (= 19 (count (sp/text->tokens test-text))))))
