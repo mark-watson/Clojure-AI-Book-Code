@@ -1,8 +1,4 @@
-(ns docs-qa.vectordb
-  (:require [clojure.java.jdbc :as jdbc]))
-
-;; (clojure.string/join " " ["1.0" "2.0" "3.0"])
-;; (clojure.string/trim
+(ns docs-qa.vectordb)
 
 (defn string-to-floats [s]
   (map #(Float/parseFloat %) (clojure.string/split s #" ")))
@@ -15,9 +11,6 @@
 (defn break-into-chunks [s chunk-size]
   (let [chunks (partition-all chunk-size s)]
     (map #(apply str %) chunks)))
-
-;; (openai-api.core/embeddings "...")
-;; (openai-api.core/dot-product [] [])
 
 (defn document-texts-from_dir [dir-path]
   (map #(slurp %) (rest (file-seq (clojure.java.io/file dir-path)))))

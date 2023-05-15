@@ -5,7 +5,6 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [clj-http "3.12.3"]
-                 [net.clojars.wkok/openai-clojure "0.6.0"]
                  [org.clojure/data.json "2.3.1"]
                  ]
   :repl-options {:init-ns openai-api.core})

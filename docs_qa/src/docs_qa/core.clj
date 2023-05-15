@@ -22,27 +22,31 @@
       docs-qa.vectordb/embeddings-with-chunk-texts)))))
 
 (defn answer-prompt [prompt]
-  '(openai-api.core/answer-question
+  (openai-api.core/answer-question
    prompt
-   50)
-  "TBDTBD1234")
+   50))
 
 (defn -main
-  "I don't do a whole lot ... yet."
-  [& args]
+  []
+  (println "Loading text files in ./data/, performing chunking and getting OpenAI embeddings...")
+  (answer-prompt " do nothiing ")
+  (print "...done loading data and getting local embeddings.\n")
   (loop []
-  (println "Enter a string:")
+  (println "Enter a query:")
   (let [input (read-line)]
     (if (empty? input)
       (println "Done.")
       (do
         (let [text (best-vector-matches input)
               prompt
-              (clojure.string/join "\n"
-                                   ["With the following CONTEXT:\n\n"
-                                    text
-                                    "\n\nANSWER:\n\n"
-                                    input])]
+              (clojure.string/replace
+               (clojure.string/join
+                "\n"
+                ["With the following CONTEXT:\n\n"
+                text
+                "\n\nANSWER:\n\n"
+                input])
+               #"\s+" " ")]
           (println "** PROMPT:" prompt)
           (println (answer-prompt prompt)))
           (recur))))))
