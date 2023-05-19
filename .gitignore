@@ -2,6 +2,7 @@ target
 *.iml
 .idea
 .lein-failures
+.clj-kondo
 .DS_Store
 *.lsp
 .lsp
