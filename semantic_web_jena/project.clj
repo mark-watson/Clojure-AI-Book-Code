@@ -6,7 +6,7 @@
   :source-paths      ["src"]
   :java-source-paths ["src-java"]
   :javac-options     ["-target" "1.8" "-source" "1.8"]
-  :dependencies [[org.clojure/clojure "1.10.1"]
+  :dependencies [[org.clojure/clojure "1.11.1"]
                  ;[com.markwatson/semanticweb "1.0.3-SNAPSHOT"]
                  [org.apache.derby/derby "10.15.2.0"]
                  [org.apache.derby/derbytools "10.15.2.0"]
