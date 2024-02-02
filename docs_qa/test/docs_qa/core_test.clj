@@ -8,8 +8,7 @@
   (testing "FIXME, I fail."
     '(println
          (openai-api.core/answer-question
-          "Where is the Valley of Kings?"
-          50))
+          "Where is the Valley of Kings?"))
     (println
      (docs-qa.core/best-vector-matches
       "What is Chemistry. How useful, really, are the sciences. Is Amyl alcohol is an organic compound?"))

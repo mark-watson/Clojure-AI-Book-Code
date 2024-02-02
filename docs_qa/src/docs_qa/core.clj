@@ -23,8 +23,7 @@
 
 (defn answer-prompt [prompt]
   (openai-api.core/answer-question
-   prompt
-   50))
+   prompt))
 
 (defn -main
   []
