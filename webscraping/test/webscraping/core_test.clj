@@ -8,4 +8,3 @@
     "Fetch my personal website and check number key/values in results"
     (let [page-data (fetch-web-page-data "https://markwatson.com")]
       (pp/pprint page-data))))
-
