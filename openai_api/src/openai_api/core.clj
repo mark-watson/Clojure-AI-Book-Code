@@ -10,78 +10,46 @@
 
 ;; define the environment variable "OPENAI_KEY" with the value of your OpenAI API key
 
-;; remove:
-
-(defn- openai-helper [body]
-  (let [json-results
-        (client/post
-         "https://api.openai.com/v1/engines/davinci/completions"
-         {:accept :json
-          :headers
-          {"Content-Type"  "application/json"
-           "Authorization" (str "Bearer " (System/getenv "OPENAI_KEY"))}
-          :body   body})]
-    (clojure.string/trim
-     ((first ((json/read-str (json-results :body)) "choices")) "text"))))
-
-
-
 (defn completions
-  "Use the OpenAI API for text completions"
-  [prompt-text max-tokens]
-  (let [response
-         (api/create-completion
-          {:model "text-davinci-003"
-           :prompt prompt-text
-           :max_tokens max-tokens
-           :temperature 0.2})]
-    ((first (response :choices)) :text)))
-   
+  "Use the OpenAI API for question answering"
+  [prompt-text]
+  (((first ((api/create-chat-completion
+              {:model    "gpt-3.5-turbo"
+               :messages [{:role "system" :content "You are a helpful assistant. You complete the user's prompt text."}
+                          {:role "user" :content prompt-text}
+                          ]})
+            :choices))
+    :message)
+   :content))
 
 (defn summarize
-  "Use the OpenAI API for text summarization"
-  [prompt-text max-tokens]
-  (let [response
-         (api/create-completion
-          {:model "text-davinci-003"
-           :prompt
-           (clojure.string/join
-            ""
-            ["Summarize this for a second-grade student:\n\n"
-             prompt-text])
-           :max_tokens max-tokens
-           :temperature 0.3
-           :top_k 1
-           :frequency_penalty 0.0
-           :presence_penalty 0.0})]
-        ((first (response :choices)) :text)))
-
+  "Use the OpenAI API for question answering"
+  [prompt-text]
+  (((first ((api/create-chat-completion
+              {:model    "gpt-3.5-turbo"
+               :messages [{:role "system" :content "You are a helpful assistant."}
+                          {:role "user"
+                           :content
+                           (clojure.string/join
+                             ""
+                             ["Summarize this for a second-grade student:\n\n"
+                              prompt-text])}
+                          ]})
+            :choices))
+    :message)
+   :content))
 
 (defn answer-question
   "Use the OpenAI API for question answering"
-  [prompt-text max-tokens]
-  (let [response
-          (api/create-completion
-           {:model "text-davinci-003"
-            :prompt
-            (clojure.string/join
-             ""
-             ["Answer the following question:\n\n"
-              prompt-text])
-            :max_tokens max-tokens
-            :temperature 0.3
-            :top_k 1
-            :frequency_penalty 0.0
-            :presence_penalty 0.0})]
-      ((first (response :choices)) :text)))
-
-
-(defn embeddings_DOES_NOT_WORK [text]
-  (let [response
-        (api/create-embedding
-         {:model "text-embedding-ada-002"
-          :input text})]
-    response))
+  [prompt-text]
+  (((first ((api/create-chat-completion
+    {:model    "gpt-3.5-turbo"
+     :messages [{:role "system" :content "You are a helpful assistant."}
+                {:role "user" :content prompt-text}
+                ]})
+   :choices))
+   :message)
+   :content))
 
 (defn embeddings [text]
   (try
