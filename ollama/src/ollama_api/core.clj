@@ -12,7 +12,6 @@
            {"Content-Type" "application/json"}
            :body   body
            })]
-    ;;(clojure.pprint/pprint json-results)
     ((json/read-str (json-results :body)) "response")))
 
 (defn completions
@@ -20,11 +19,10 @@
   [prompt-text]
   (let
     [body
-     (str
-       "{\"prompt\": \"" prompt-text
-       "\", \"model\": \"mistral\""
-       ", \"stream\": false }"
-       )]
+     (json/write-str
+       {:prompt prompt-text
+        :model "mistral"
+        :stream false})]
     (ollama-helper body)))
 
 (defn summarize

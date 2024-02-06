@@ -9,16 +9,14 @@
   (testing "ollama-Ollama completions API"
     (let [results
           (ollama-api.core/completions "He walked to the river")]
-      (println results)
-      (is (= 0 0)))))
+      (println results))))
 
 (deftest summarize-test
   (testing "ollama-Ollama summarize API"
     (let [results
           (ollama-api.core/summarize
             some-text)]
-      (println results)
-      (is (= 0 0)))))
+      (println results))))
 
 
 (deftest question-answering-test
@@ -27,5 +25,4 @@
           (ollama-api.core/answer-question
             "Where is the Valley of Kings?"
             )]
-      (println results)
-      (is (= 0 0)))))
+      (println results))))
