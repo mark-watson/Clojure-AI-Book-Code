@@ -1,6 +1,4 @@
 (ns openai-api.core
-  (:require
-   [wkok.openai-clojure.api :as api])
   (:require [clj-http.client :as client])
   (:require [clojure.data.json :as json]))
 
