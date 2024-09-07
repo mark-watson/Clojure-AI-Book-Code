@@ -10,8 +10,12 @@ Look at the tests for API usage.
 
 ## Code for my book "Practical Artificial Intelligence Programming With Clojure"
 
-You read my eBooks for free, see my
-website [https://markwatson.com](https://markwatson.com). If you would like to pay me for a copy then please visit [https://leanpub.com/clojureai](https://leanpub.com/clojureai).
+You can read the book for this example code for free online: [https://leanpub.com/clojureai/read](https://leanpub.com/clojureai/read).
+
+If you would like to pay me for a copy of this book then please visit [https://leanpub.com/clojureai](https://leanpub.com/clojureai).
+
+Please visit see my website [https://markwatson.com](https://markwatson.com).
+
 
 ## License
 
