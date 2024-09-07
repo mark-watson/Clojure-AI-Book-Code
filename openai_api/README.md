@@ -2,7 +2,7 @@
 
 A Clojure library for using the OpenAI APIs (GPT-4 based)
 
-Note: September 7, 2024: I just modified the OpenAI client code - updating the book is TBD.
+Note: September 7, 2024: I just modified the OpenAI client code.
 
 Note: in previous editions of my book, I implemented low level client code
 from scratch. That old code is now in the directory **../openai_api_mw**. The code here now is just a thin wrapper for Werner Kok's library [https://github.com/wkok/openai-clojure](https://github.com/wkok/openai-clojure).
