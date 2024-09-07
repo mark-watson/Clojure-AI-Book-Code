@@ -1,6 +1,8 @@
 # openai_api
 
-A Clojure library for using the OpenAI APIs (GPT-3 based)
+A Clojure library for using the OpenAI APIs (GPT-4 based)
+
+Note: September 7, 2024: I just modified the OpenAI client code - updating the book is TBD.
 
 ## Usage
 

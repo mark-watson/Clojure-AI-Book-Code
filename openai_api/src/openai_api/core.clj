@@ -3,56 +3,52 @@
   (:require [clojure.data.json :as json]))
 
 ;; define the environment variable "OPENAI_KEY" with the value of your OpenAI API key
+(def model2 "gpt-4o-mini")
 
-(defn- openai-helper [body]
-  (let [json-results
-        (client/post
-          "https://api.openai.com/v1/engines/davinci/completions"
-          {:accept :json
-           :headers
-                   {"Content-Type"  "application/json"
-                    "Authorization" (str "Bearer " (System/getenv "OPENAI_KEY"))
-                    }
-           :body   body
-           })]
-    ((first ((json/read-str (json-results :body)) "choices")) "text")))
+(def api-key (System/getenv "OPENAI_API_KEY"))
 
-(defn completions
-  "Use the OpenAI API for text completions"
-  [prompt-text max-tokens]
-  (let
-    [body
-     (str
-       "{\"prompt\": \"" prompt-text "\", \"max_tokens\": "
-       (str max-tokens) "}")]
-    (openai-helper body)))
+(defn completions [prompt]
+  (let [url "https://api.openai.com/v1/chat/completions"
+        headers {"Authorization" (str "Bearer " api-key)
+                 "Content-Type" "application/json"}
+        body {:model model2
+              :messages [{:role "user" :content prompt}]}
+        response (client/post url {:headers headers
+                                   :body (json/write-str body)})]
+    ;;(println (:body response))
+    (get
+     (get
+      (first
+       (get
+        (json/read-str (:body response)  :key-fn keyword)
+        :choices))
+      :message)
+     :content)))
 
-(defn summarize
-  "Use the OpenAI API for text summarization"
-  [prompt-text max-tokens]
-  (let
-    [body
-     (str
-       "{\"prompt\": \"" prompt-text "\", \"max_tokens\": "
-       (str max-tokens) ", \"presence_penalty\": 0.0"
-       ", \"temperature\": 0.3, \"top_p\": 1.0, \"frequency_penalty\": 0.0"
-       "}")]
-    (openai-helper body)))
+(defn summarize [text]
+  (completions (str "Summarize the following text:\n\n" text)))
 
+(defn embeddings [text]
+  (try
+    (let* [body
+           (str
+            "{\"input\": \""
+            (clojure.string/replace
+             (clojure.string/replace text #"[\" \n :]" " ")
+             #"\s+" " ")
+            "\", \"model\": \"text-embedding-ada-002\"}")
+           json-results
+           (client/post
+            "https://api.openai.com/v1/embeddings"
+            {:accept :json
+             :headers
+             {"Content-Type"  "application/json"
+              "Authorization" (str "Bearer " (System/getenv "OPENAI_KEY"))}
+             :body   body})]
+          ((first ((json/read-str (json-results :body)) "data")) "embedding"))
+    (catch Exception e
+      (println "Error:" (.getMessage e))
+      "")))
 
-(defn answer-question
-  "Use the OpenAI API for question answering"
-  [prompt-text max-tokens]
-  (let
-    [body
-     (str
-       "{\"prompt\": \"" (str "nQ: " prompt-text) "nA:\", \"max_tokens\": "
-       (str max-tokens) ", \"presence_penalty\": 0.0"
-       ", \"temperature\": 0.3, \"top_p\": 1.0, \"frequency_penalty\": 0.0"
-       ", \"stop\": [\"\\n\"]"
-       "}")
-     results (openai-helper body)
-     ind (clojure.string/index-of results "nQ:")]
-    (if (nil? ind)
-      results
-      (subs results 0 ind))))
+(defn dot-product [a b]
+  (reduce + (map * a b)))
