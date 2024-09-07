@@ -44,7 +44,7 @@
             {:accept :json
              :headers
              {"Content-Type"  "application/json"
-              "Authorization" (str "Bearer " (System/getenv "OPENAI_KEY"))}
+              "Authorization" (str "Bearer " api-key)}
              :body   body})]
           ((first ((json/read-str (json-results :body)) "data")) "embedding"))
     (catch Exception e
