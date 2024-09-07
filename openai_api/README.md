@@ -4,9 +4,17 @@ A Clojure library for using the OpenAI APIs (GPT-4 based)
 
 Note: September 7, 2024: I just modified the OpenAI client code - updating the book is TBD.
 
+Note: in previous editions of my book, I implemented low level client code
+from scratch. That old code is now in the directory **../openai_api_mw**. The code here now is just a thin wrapper for Werner Kok's library [https://github.com/wkok/openai-clojure](https://github.com/wkok/openai-clojure).
+
 ## Usage
 
     lein test
+
+## Code for my book "Practical Artificial Intelligence Programming With Clojure"
+
+You read my eBooks for free, see my
+website [https://markwatson.com](https://markwatson.com). If you would like to pay me for a copy then please visit [https://leanpub.com/clojureai](https://leanpub.com/clojureai).
 
 ## License
 

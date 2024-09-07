@@ -1,36 +1,18 @@
 # deeplearning_dl4j_clj
 
-FIXME: description
+# Code for my book "Practical Artificial Intelligence Programming With Clojure"
 
-## Installation
+Documentation for this example is in the first chapter of my book that can be read for free online, or purchased: [https://leanpub.com/clojureai](https://leanpub.com/clojureai)
 
-Download from http://example.com/FIXME.
+Please also visit my website [https://markwatson.com](https://markwatson.com).
 
-## Usage
+## Running the Example
 
-FIXME: explanation
-
-    $ java -jar deeplearning_dl4j_clj-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+    lein run
 
 ## License
 
-Copyright © 2021 FIXME
+Copyright © 2021-2023 Mark Watson
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at

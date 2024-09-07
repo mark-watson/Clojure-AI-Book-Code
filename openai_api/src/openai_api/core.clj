@@ -1,8 +1,9 @@
 (ns openai-api.core
+  (:require
+   [wkok.openai-clojure.api :as api])
   (:require [clj-http.client :as client])
   (:require [clojure.data.json :as json]))
 
-;; define the environment variable "OPENAI_KEY" with the value of your OpenAI API key
 (def model2 "gpt-4o-mini")
 
 (def api-key (System/getenv "OPENAI_API_KEY"))
@@ -52,3 +53,4 @@
 
 (defn dot-product [a b]
   (reduce + (map * a b)))
+
