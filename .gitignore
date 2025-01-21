@@ -14,4 +14,7 @@ target
 .project
 .settings
 .calva
+.vscode
+perplexity
+#*#
 
