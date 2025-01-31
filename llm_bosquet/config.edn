@@ -1,0 +1,6 @@
+{:llm
+ {:ollama
+  {:api-endpoint "http://localhost:11434/api"
+   :chat-fn      bosquet.llm.ollama/chat
+   :complete-fn  bosquet.llm.ollama/complete
+   :embed-fn     bosquet.llm.ollama/create-embedding}}}
