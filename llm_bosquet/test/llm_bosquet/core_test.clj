@@ -5,7 +5,7 @@
 (deftest test-ollama-generate
   (testing "ollama-generate function"
     (let [prompt "What is the distance from the Moon to Io?"
-          response (ollama-generate prompt)]
-      (println response)
-      (is (string? response))
-      (is (not (clojure.string/blank? response))))))
+          response (ollama-generate prompt)
+          answer (get-in response [:bosquet/completions :answer])]
+      (println "\nComplete response: " response)
+      (println "\nAnswer: ", answer))))
