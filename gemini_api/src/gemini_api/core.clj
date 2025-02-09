@@ -36,23 +36,5 @@
              (println "Error response body:" response-body))
            nil))))
 
-
-
 (defn summarize [text]
   (generate-content (str "Summarize the following text:\n\n" text)))
-
-
-(defn embeddings [text]
-  (println "Embeddings are not directly supported by this Gemini API example.")
-  (println "You may need a different API or feature within the Gemini ecosystem.")
-  (println "Returning nil for now.")
-  nil)
-
-
-
-(defn dot-product [a b]
-  (if (and (vector? a) (vector? b))
-    (reduce + (map * a b))
-    (do
-      (println "Error: Input must be vectors for dot-product")
-      nil)))
