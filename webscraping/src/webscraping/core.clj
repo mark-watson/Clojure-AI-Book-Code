@@ -28,3 +28,18 @@
         all-page-text (. doc text)
         anchors (get-html-anchors doc)]
     {:page-text all-page-text :anchors anchors}))
+
+(defn -main [& args]
+  (println "Fetching data from https://markwatson.com...")
+  (let [page-data (fetch-web-page-data "https://markwatson.com")
+        anchors (:anchors page-data)]
+    (if (seq anchors)
+      (do
+        (println (str "\nFound " (count anchors) " anchors:"))
+        (println "\nFirst 5 anchors:")
+        (doseq [anchor (take 5 anchors)]
+          (println (str "  Text: " (:text anchor)))
+          (println (str "  URI:  " (:uri anchor)))
+          (println "----")))
+      (println "\nNo anchors found on the page."))
+    (println "\nFetching complete.")))
