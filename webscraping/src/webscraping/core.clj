@@ -5,18 +5,15 @@
 
 (defn get-html-anchors [jsoup-web-page-contents]
   (let [anchors (. jsoup-web-page-contents select "a[href]")]
-    (for [anchor anchors]
-      (try
-        (let [anchor-text (. (first (. anchor childNodes)) text)
-              anchor-uri-base (. (first (. anchor childNodes)) baseUri)
-              href-attribute (. (. anchor attributes) get "href")
-              anchor-uri
-              (if (str/starts-with? href-attribute "http")
-                href-attribute
-                (str/join "" [anchor-uri-base (. (. anchor attributes) get "href")]))
-              furi (first (. anchor childNodes))]
-          {:text (str/trim anchor-text) :uri anchor-uri})
-        (catch Exception e {:text (ex-message e) :uri ""})))))
+    (->> anchors
+         (map (fn [anchor]
+                (try
+                  {:text (str/trim (. anchor text))
+                   :uri (. anchor absUrl "href")}
+                  (catch Exception e
+                    (binding [*out* *err*] (println (str "Error processing anchor: " (.getMessage e) " on page: " (. jsoup-web-page-contents title))))
+                    nil))))
+         (filterv some?))))
 
 (defn fetch-web-page-data
   "Get the <a> anchor data and full text from a web URI"
