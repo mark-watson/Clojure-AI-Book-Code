@@ -1,9 +1,9 @@
-# Try the CLojure LLM library Bosquet
+# Try the Clojure LLM library Bosquet
 
 Currently uses Bosquet's defaults:
 
-- Model: gpt-3.5-turbo
-- OpenAI API
+- Model: mistral-small
+- Local Ollama model hosting
 
 ## Example files
 
@@ -18,7 +18,7 @@ project-root/
 
 ## Running the example
 
-Make sure you define a valif OpenAI API key:
+Make sure you define a valif OpenAI API key (if using OpenAI):
 
     export OPENAI_API_KEY=sk-......
 
