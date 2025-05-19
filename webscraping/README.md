@@ -4,9 +4,15 @@ A Clojure library using the Java jsoup library.
 
 ## Usage
 
+Run tests:
+
     lein test
 
 Look at the tests for API usage.
+
+Run main function in core.clj that contains a simple example:
+
+    lein run
 
 ## Code for my book "Practical Artificial Intelligence Programming With Clojure"
 
