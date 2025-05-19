@@ -66,7 +66,8 @@
         (if benign_result
           (println "benign_result true")
           (println "benign_result false"))
-
+        {:malignant-result malignant_result
+         :benign-result benign_result}
         ))))
 (defn -main
   "I don't do a whole lot ... yet."
