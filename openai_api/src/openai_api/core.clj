@@ -27,6 +27,12 @@
 (defn summarize [text]
   (completions (str "Summarize the following text:\n\n" text)))
 
+(defn answer-question
+  "Use the OpenAI API for question answering"
+  [text]
+  (completions (str "Answer the following question:\n\n" text)))
+  
+
 (defn embeddings [text]
   (try
     (let* [body

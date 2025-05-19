@@ -23,10 +23,8 @@
 (deftest question-answering-test
   (testing "OpenAI question-answering API"
     (let [results
-          (openai-api.core/completions
-            ;;"If it is not used for hair, a round brush is an example of what 1. hair brush 2. bathroom 3. art supplies 4. shower ?"
+          (openai-api.core/answer-question
            "Where is the Valley of Kings?"
-            ;"Where is San Francisco?"
            )]
       (println results)
       (is (= 0 0)))))
