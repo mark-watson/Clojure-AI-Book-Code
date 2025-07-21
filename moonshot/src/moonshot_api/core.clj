@@ -9,7 +9,7 @@
 (def moonshot-model "kimi-k2-0711-preview")
 
 (defn completions
-  "Sends a predefined request to the Moonshot AI chat completions API."
+  "Sends promp request to the Moonshot AI chat completions API."
   [prompt]
   (if-not moonshot-api-key
     (println "Error: MOONSHOT_API_KEY environment variable not set.")
@@ -39,8 +39,53 @@
       (catch Exception e
         (str "An exception occurred: " (.getMessage e))))))
 
-(defn -main
-  "Main function to execute the API call and print the result."
-  [& args]
-  (let [result (completions)]
-    (println result)))
+(defn- chat
+  "Sends a chat request to the Moonshot AI chat completions API with tool support."
+  [messages]
+  (let [url (str moonshot-base-url "/chat/completions")
+        headers {"Authorization" (str "Bearer " moonshot-api-key)
+                 "Content-Type" "application/json"}
+        body {:model moonshot-model
+              :messages messages
+              :temperature 0.3
+              :tools [{:type "builtin_function"
+                       :function {:name "$web_search"}}]}
+        response (client/post url {:headers headers
+                                   :body    (json/write-str body)
+                                   :throw-exceptions false})
+        parsed-body (json/read-str (:body response) :key-fn keyword)]
+    (if (= (:status response) 200)
+      (-> parsed-body :choices first)
+      (throw (Exception. (str "Error: Received status " (:status response) ". Body: " (:body response)))))))
+
+(defn search
+  "Performs a Kimi 2 completion with web search."
+  [user-question]
+  (if-not moonshot-api-key
+    (println "Error: MOONSHOT_API_KEY environment variable not set.")
+    (try
+      (loop [messages [{:role "system" :content "You are Kimi an AI assistant who returns all answers in English."}
+                       {:role "user" :content user-question}]]
+        (let [choice (chat messages)
+              finish-reason (:finish_reason choice)]
+          (if (= finish-reason "tool_calls")
+            (let [assistant-message (:message choice)
+                  tool-calls (-> assistant-message :tool_calls)
+                  tool-messages (map (fn [tool-call]
+                                       (let [tool-call-name (-> tool-call :function :name)]
+                                         (if (= tool-call-name "$web_search")
+                                           (let [tool-call-args (json/read-str (-> tool-call :function :arguments) :key-fn keyword)]
+                                             {:role "tool"
+                                              :tool_call_id (:id tool-call)
+                                              :name tool-call-name
+                                              :content (json/write-str tool-call-args)})
+                                           (let [error-message (str "Error: unable to find tool by name '" tool-call-name "'")]
+                                             {:role "tool"
+                                              :tool_call_id (:id tool-call)
+                                              :name tool-call-name
+                                              :content (json/write-str error-message)}))))
+                                     tool-calls)]
+              (recur (concat messages [assistant-message] tool-messages)))
+            (-> choice :message :content))))
+      (catch Exception e
+        (str "An exception occurred: " (.getMessage e))))))
