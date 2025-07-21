@@ -2,7 +2,7 @@
   (:require [clj-http.client :as client])
   (:require [clojure.data.json :as json]))
 
-(def model "gemini-2.0-flash") ; or gemini-1.5-pro, etc.
+(def model "gemini-2.5-flash") ; or gemini-1.5-pro, etc.
 
 (def google-api-key (System/getenv "GOOGLE_API_KEY")) ; Make sure to set this env variable
 
