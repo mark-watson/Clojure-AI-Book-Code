@@ -3,13 +3,8 @@
            (com.google.genai.types GenerateContentResponse)))
 
 (def DEBUG false)
-
 (def model "gemini-2.5-flash") ; or gemini-2.5-pro, etc.
-
 (def google-api-key (System/getenv "GOOGLE_API_KEY")) ; Make sure to set this env variable
-
-(def base-url "https://generativelanguage.googleapis.com/v1beta/models")
-
 
 (defn generate-content
   "Sends a prompt to the Gemini API using the specified model and returns the text response.
