@@ -1,0 +1,17 @@
+/target
+/classes
+/checkouts
+.idea
+.lsp
+profiles.clj
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+/.lein-*
+/.nrepl-port
+/.prepl-port
+.hgignore
+.hg/
+
+.codegpt

@@ -1,14 +1,8 @@
-# gemini_api
+# gemini_java_api
 
-A Clojure library for using the gemini REST APIs
+A Clojure library for using the gemini Java APIs
 
-This code is similar to the code in ../gemini_java_api that uses Google's Java Gemini SDK.
-
-Run the Code:
-(require '[gemini-api.core :as gemini])
-
-(println (gemini/generate-content "Write a short poem about the ocean."))
-(println (gemini/summarize "The quick brown fox jumps over the lazy dog."))
+Similar to the example in ../gemini_api that uses the REST Gemini API interface
 
 ## Usage
 

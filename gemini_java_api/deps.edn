@@ -1,0 +1,4 @@
+{:deps {org.clojure/clojure {:mvn/version "1.11.1"}
+        clj-http/clj-http {:mvn/version "3.12.1"}
+        org.clojure/data.json {:mvn/version "2.5.0"}
+        com.google.genai/google-genai {:mvn/version "1.11.0"}}}
