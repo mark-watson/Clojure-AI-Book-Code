@@ -7,8 +7,8 @@
 (def google-api-key (System/getenv "GOOGLE_API_KEY")) ; Make sure to set this env variable
 
 (defn generate-content
-  "Sends a prompt to the Gemini API using the specified model and returns the text response.
-  Handles basic API errors."
+  "Sends a prompt to the Gemini API using the specified model and returns
+   the text response.
   [prompt]
   (let [client (Client.)
         ^GenerateContentResponse resp
