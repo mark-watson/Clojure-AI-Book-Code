@@ -2,7 +2,8 @@
   (:require [clojure.test :refer :all]
             [litellm.router :as router]))
 
-;; :available-providers #{:gemini :openrouter :mistral :anthropic :openai :ollama}
+;; available-providers;
+;;  #{:gemini :openrouter :mistral :anthropic :openai :ollama}
 
 (deftest openai-completions-test
   (testing "OpenAI completions API with LiteLLM"
