@@ -1,8 +1,11 @@
 # LiteLLM. WORK IN PROGRESS
 
-An open surce Clojure library for using multiple LLM providers and models. Here we test with the OpenAI and Gemini APIs.
+Here we use an open source Clojure library by the Unravel team  for using multiple LLM providers and models.
+
+Wee test with the OpenAI and Gemini APIs.
 
 Project: https://github.com/unravel-team/litellm-clj
+
 Other useful Clojure projects by the Unravel team (not used here): https://github.com/unravel-team
 
 
