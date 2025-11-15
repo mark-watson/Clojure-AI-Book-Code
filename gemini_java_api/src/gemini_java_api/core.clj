@@ -8,7 +8,7 @@
 
 (defn generate-content
   "Sends a prompt to the Gemini API using the specified model and returns
-   the text response.
+   the text response."
   [prompt]
   (let [client (Client.)
         ^GenerateContentResponse resp
