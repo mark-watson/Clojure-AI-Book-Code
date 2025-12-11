@@ -15,6 +15,7 @@
    (let [response (router/completion :fast
                    {:messages [{:role :user :content "please generate a 10 word sentence"}]})]
      (println (router/extract-content response))
+     (println response)
      (is (not (nil? response))))))
 
 (deftest google-completions-test
@@ -27,4 +28,5 @@
    (let [response (router/completion :fast
                    {:messages [{:role :user :content "please generate a 10 word sentence"}]})]
      (println (router/extract-content response))
+     ;;(print response)
      (is (not (nil? response))))))
