@@ -30,3 +30,10 @@
            )]
       (println results)
       (is (= 0 0)))))
+
+(deftest completions-with-search-test
+  (testing "gemini completions with search"
+    (let [results
+          (gemini-java-api.core/generate-content-with-search "What is the capital of France?")]
+      (println results)
+      (is (= 0 0)))))
