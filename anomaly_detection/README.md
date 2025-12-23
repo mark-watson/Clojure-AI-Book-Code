@@ -7,7 +7,7 @@ website [https://markwatson.com](https://markwatson.com). If you would like to p
 
 ## License
 
-Copyright © 2021 Mark Watson
+Copyright © 2021-2025 Mark Watson
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at

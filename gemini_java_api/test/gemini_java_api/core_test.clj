@@ -34,6 +34,6 @@
 (deftest completions-with-search-test
   (testing "gemini completions with search"
     (let [results
-          (gemini-java-api.core/generate-content-with-search "What is the capital of France?")]
+          (gemini-java-api.core/generate-content-with-search "What sci-fi moves are playing in Harkens 16 in Flagstaff today?")]
       (println results)
       (is (= 0 0)))))
